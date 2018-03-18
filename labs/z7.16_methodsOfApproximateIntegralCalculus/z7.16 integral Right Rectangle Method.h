@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
-#define Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
+#ifndef _INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
+#define _INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
 
 // Получает следующий x.
 double z7_16_iRRM_p_getNextX(double oldX, float h);
@@ -28,7 +28,7 @@ float z7_16_iRRM_p_sum(unsigned N, float f(float x), float h, float a)
 	double OldX = (double)a;
 	for (unsigned i = 1; i != N + 1; i++)
 	{
-		out += f(OldX);
+		out += (double)f((float)OldX);
 		OldX = z7_16_iRRM_p_getNextX(OldX, h);
 	}
 	return (float)out;
@@ -43,4 +43,4 @@ float z7_16_iRRM_CalculateIntegral(float f(float x), float a, float b, unsigned 
 	return h * z7_16_iRRM_p_sum(N, f, h, a);
 }
 
-#endif // !Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
+#endif // !_INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD

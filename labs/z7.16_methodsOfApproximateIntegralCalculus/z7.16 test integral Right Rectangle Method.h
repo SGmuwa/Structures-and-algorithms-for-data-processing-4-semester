@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#ifndef Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
+#ifndef _INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
 #include "z7.16 integral Right Rectangle Method.h"
-#endif // !Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
+#endif // !_INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
 
-#ifndef INC_Z7_16_TEST_USERINRERFACE
+#ifndef _INC_Z7_16_TEST_USERINRERFACE
 #include "z7.16 test UserInterface.h"
-#endif
+#endif //!_INC_Z7_16_TEST_USERINRERFACE
 
 #define TRUE 1
 #define FALSE 0
@@ -22,7 +22,7 @@ unsigned short z7_16_tiRRM_p_Test_p_getNextX()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getNextX: 0, 0: failed. Result: ", z7_16_iRRM_p_getNextX(0.0f, 0.0f));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getNextX: 0, 0: failed. Result: ", (float)z7_16_iRRM_p_getNextX(0.0f, 0.0f));
 	}
 
 	if (z7_16_iRRM_p_getNextX(-3.0f, 0.2f) - (-2.8) < 0.00001 && z7_16_iRRM_p_getNextX(-3.0f, 0.2f) - (-2.8) > -0.00001)
@@ -30,7 +30,7 @@ unsigned short z7_16_tiRRM_p_Test_p_getNextX()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getNextX: -3, 0.2: failed. Result: ", z7_16_iRRM_p_getNextX(-3.0f, 0.2f));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getNextX: -3, 0.2: failed. Result: ", (float)z7_16_iRRM_p_getNextX(-3.0f, 0.2f));
 	}
 	return out;
 }

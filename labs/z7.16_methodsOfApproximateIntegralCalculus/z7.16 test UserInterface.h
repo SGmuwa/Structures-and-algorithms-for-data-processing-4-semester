@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#ifndef INC_Z7_16_TEST_USERINRERFACE
-#define INC_Z7_16_TEST_USERINRERFACE
+#ifndef _INC_Z7_16_TEST_USERINRERFACE
+#define _INC_Z7_16_TEST_USERINRERFACE
 
 #ifndef _INC_STDIO
 #include <stdio.h>
@@ -27,4 +27,4 @@ void z7_16_test_UserInterface_p_logStringFloat(char res, char * message, float v
 }
 
 
-#endif // !INC_Z7_16_TEST_USERINRERFACE
+#endif // !_INC_Z7_16_TEST_USERINRERFACE
