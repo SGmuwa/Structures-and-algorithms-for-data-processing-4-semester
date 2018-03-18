@@ -1,1 +1,4 @@
-﻿
+﻿  Program.c
+g:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\program.c(9): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+  z7.16_methodsOfApproximateIntegralCalculus.vcxproj -> G:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z7.16_methodsOfApproximateIntegralCalculus.exe
+  z7.16_methodsOfApproximateIntegralCalculus.vcxproj -> G:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z7.16_methodsOfApproximateIntegralCalculus.pdb (Partial PDB)

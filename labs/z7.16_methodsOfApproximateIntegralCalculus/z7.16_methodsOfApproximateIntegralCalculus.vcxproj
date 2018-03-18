@@ -112,6 +112,15 @@
   <ItemGroup>
     <Text Include="Formulation of the problem.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="z7.16 integral Right Rectangle Method.h" />
+    <ClInclude Include="z7.16 test UserInterface.h" />
+    <ClInclude Include="z7.16 UserInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Program.c" />
+    <ClCompile Include="z7.16 test integral Right Rectangle Method.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
