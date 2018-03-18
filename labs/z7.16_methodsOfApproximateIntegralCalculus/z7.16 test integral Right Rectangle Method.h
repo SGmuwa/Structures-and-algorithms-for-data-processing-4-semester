@@ -89,13 +89,13 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegral()
 	unsigned short out = 0;
 	float buffer;
 
-	buffer = z7_16_iRRM_CalculateIntegral(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 1000000000);
+	buffer = z7_16_iRRM_CalculateIntegral(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 10000000);
 	if (buffer - 128.0f < 0.1f && buffer - 128.0f > -0.1f)
-		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 1000000000: ok. Observational error: ", buffer - 128.0f);
+		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 10000000: ok. Observational error: ", buffer - 128.0f);
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 1000000000: failed. Observational error: ", buffer - 128.0f);
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
 	}
 
 	buffer = z7_16_iRRM_CalculateIntegral(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0);

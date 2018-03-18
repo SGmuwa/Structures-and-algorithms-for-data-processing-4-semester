@@ -2,7 +2,6 @@
 g:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 integral right rectangle method.h(31): warning C4244: функция: преобразование "double" в "float", возможна потеря данных
 g:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h(25): warning C4244: функция: преобразование "double" в "float", возможна потеря данных
 g:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h(33): warning C4244: функция: преобразование "double" в "float", возможна потеря данных
-cl : командная строка warning D9028: сбой минимальной повторной сборки, возврат к обычной сборке
   Пропуск... (изменения не обнаружены)
   z7.16 test integral Right Rectangle Method.h
   z7.16_methodsOfApproximateIntegralCalculus.vcxproj -> G:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z7.16_methodsOfApproximateIntegralCalculus.exe
