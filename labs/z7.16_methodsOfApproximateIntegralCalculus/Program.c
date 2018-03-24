@@ -6,7 +6,7 @@
 
 float f_xePsx(float x)
 {
-	return x * exp((double)-x);
+	return (float)(x * exp((double)-x));
 }
 
 void BeginIntegral()
@@ -27,11 +27,14 @@ void BeginIntegral()
 	default:
 		b = 2.0f;
 	}
-	unsigned N = z7_16_UserInterface_GetUnsignedInt("Number of iterations: ");
-	printf("result: %f\n", z7_16_iRRM_CalculateIntegral(f_xePsx, 0.0f, b, N));
+	float hCurrent;
+	do
+		hCurrent = z7_16_UserInterface_GetFloat("Accuracy of calculations: ");
+	while (hCurrent < 0 || isnan(hCurrent));
+	printf("result: %f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, b, hCurrent));
 }
 
-void main(void)
+int main(int argc, char * argv[])
 {
 	switch (z7_16_UserInterface_GetChek("0. Launch the lab work #1.\n1. Perform functional testing.\n", 1))
 	{
@@ -42,4 +45,5 @@ void main(void)
 		z7_16_tiRRM_StartTest();
 	}
 	z7_16_UserInterface_Pause();
+	return 0;
 }

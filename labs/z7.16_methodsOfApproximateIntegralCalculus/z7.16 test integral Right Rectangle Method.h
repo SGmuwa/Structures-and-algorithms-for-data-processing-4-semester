@@ -84,27 +84,53 @@ unsigned short z7_16_tiRRM_p_Test_p_sum()
 	return out;
 }
 
-unsigned short z7_16_tiRRM_p_Test_CalculateIntegral()
+unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByN()
 {
 	unsigned short out = 0;
 	float buffer;
 
-	buffer = z7_16_iRRM_CalculateIntegral(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 10000000);
+	buffer = z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 10000000);
 	if (buffer - 128.0f < 0.1f && buffer - 128.0f > -0.1f)
-		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 10000000: ok. Observational error: ", buffer - 128.0f);
+		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 16, 10000000: ok. Observational error: ", buffer - 128.0f);
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegral: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
 	}
 
-	buffer = z7_16_iRRM_CalculateIntegral(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0);
+	buffer = z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0);
 	if (ISNAN(buffer))
-		z7_16_test_UserInterface_p_log(TRUE, "z7_16_iRRM_CalculateIntegral: f2, 0, 0, 0: isnan. ok.");
+		z7_16_test_UserInterface_p_log(TRUE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 0, 0: isnan. ok.");
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegral:  f2, 0, 0, 0: failed. Result: ", buffer);
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByN:  f2, 0, 0, 0: failed. Result: ", buffer);
+	}
+
+	return out;
+}
+
+unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByH()
+{
+	unsigned short out = 0;
+	float buffer;
+
+	buffer = z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 0.01f);
+	if (buffer - 128.0f < 0.01f && buffer - 128.0f > -0.01f)
+		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 16, 0.01: ok. Observational error: ", buffer - 128.0f);
+	else
+	{
+		out++;
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
+	}
+
+	buffer = z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0.0f);
+	if (ISNAN(buffer))
+		z7_16_test_UserInterface_p_log(TRUE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 0, 0: isnan. ok.");
+	else
+	{
+		out++;
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByH:  f2, 0, 0, 0: failed. Result: ", buffer);
 	}
 
 	return out;
@@ -118,8 +144,9 @@ unsigned short z7_16_tiRRM_StartTest()
 	total += z7_16_tiRRM_p_Test_p_getNextX();
 	total += z7_16_tiRRM_p_Test_p_getH();
 	total += z7_16_tiRRM_p_Test_p_sum();
-	total += z7_16_tiRRM_p_Test_CalculateIntegral();
-	z7_16_test_UserInterface_p_logStringFloat(total == 0.0f, "test z7_16_iRRM ended. Total errors: ", (float)total);
+	total += z7_16_tiRRM_p_Test_CalculateIntegralByN();
+	total += z7_16_tiRRM_p_Test_CalculateIntegralByH();
+	z7_16_test_UserInterface_p_logStringUnsignedInt(total == 0.0f, "test z7_16_iRRM ended. Total errors: ", (float)total);
 	return total;
 }
 
