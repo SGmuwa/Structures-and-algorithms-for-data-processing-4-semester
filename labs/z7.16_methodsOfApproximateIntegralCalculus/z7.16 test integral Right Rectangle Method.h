@@ -146,7 +146,7 @@ unsigned short z7_16_tiRRM_StartTest()
 	total += z7_16_tiRRM_p_Test_p_sum();
 	total += z7_16_tiRRM_p_Test_CalculateIntegralByN();
 	total += z7_16_tiRRM_p_Test_CalculateIntegralByH();
-	z7_16_test_UserInterface_p_logStringUnsignedInt(total == 0.0f, "test z7_16_iRRM ended. Total errors: ", (float)total);
+	z7_16_test_UserInterface_p_logStringUnsignedInt(total == 0.0f, "test z7_16_iRRM ended. Total errors: ", total);
 	return total;
 }
 
