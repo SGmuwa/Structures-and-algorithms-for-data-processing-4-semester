@@ -69,7 +69,7 @@ unsigned char z7_16_UserInterface_GetChek(char * message, unsigned char maxAcces
 	return buffer;
 }
 
-// Запрашивает целое беззнаковое число у пользователя
+// Запрашивает целое беззнаковое число у пользователя.
 // char * message: сообщение, которое увидит пользователь.
 // Возвращает: Целое беззнаковое число, которое передал пользователь или поток.
 unsigned z7_16_UserInterface_GetUnsignedInt(char * message)
@@ -87,6 +87,44 @@ unsigned z7_16_UserInterface_GetUnsignedInt(char * message)
 			scanf_s("%u", &buffer)
 #else
 			scanf("%u", &buffer)
+#endif // _MSC_VER
+			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
+			)
+		{
+			break;
+		}
+#ifdef _MSC_VER
+		scanf_s("%*s");
+#else
+		scanf("%*s");
+#endif // _MSC_VER
+	}
+#ifdef _MSC_VER
+	scanf_s("%*c");
+#else
+	scanf("%*c");
+#endif // _MSC_VER
+	return buffer;
+}
+
+// Запрашивает целое вещественное число у пользователя.
+// char * message: сообщение, которое увидит пользователь.
+// Возвращает: Вещественное число, которое передал пользователь или поток.
+float z7_16_UserInterface_GetFloat(char * message)
+{
+	float buffer = 0;
+	while (TRUE)
+	{
+#ifdef _MSC_VER
+		printf_s("%s", message);
+#else
+		printf("%s", message);
+#endif // _MSC_VER
+		if (
+#ifdef _MSC_VER
+			scanf_s("%f", &buffer)
+#else
+			scanf("%f", &buffer)
 #endif // _MSC_VER
 			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
 			)
