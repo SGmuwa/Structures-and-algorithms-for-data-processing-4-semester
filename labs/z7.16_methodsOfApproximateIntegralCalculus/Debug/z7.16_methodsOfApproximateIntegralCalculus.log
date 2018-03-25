@@ -1,6 +1,4 @@
 ﻿  Program.c
-c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h(149): warning C4244: функция: преобразование "float" в "unsigned int", возможна потеря данных
   z7.16 test integral Right Rectangle Method.h
-c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h(149): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
   z7.16_methodsOfApproximateIntegralCalculus.vcxproj -> C:\Users\Михаил\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z7.16_methodsOfApproximateIntegralCalculus.exe
   z7.16_methodsOfApproximateIntegralCalculus.vcxproj -> C:\Users\Михаил\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z7.16_methodsOfApproximateIntegralCalculus.pdb (Partial PDB)

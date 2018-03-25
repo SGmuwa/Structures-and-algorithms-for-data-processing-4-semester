@@ -30,7 +30,7 @@ void BeginIntegral()
 	float hCurrent;
 	do
 		hCurrent = z7_16_UserInterface_GetFloat("Accuracy of calculations: ");
-	while (hCurrent < 0 || isnan(hCurrent));
+	while (hCurrent <= 0 || isnan(hCurrent));
 	printf("result: %f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, b, hCurrent));
 }
 
