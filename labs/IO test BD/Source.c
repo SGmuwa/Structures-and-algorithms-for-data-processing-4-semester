@@ -34,7 +34,7 @@ struct ElmBD_Array
 unsigned UserInterface_GetUnsignedInt(char * message, FILE * fpIN, FILE * fpOUT)
 {
 	unsigned buffer = 0;
-	unsigned char limit = ~0u;
+	unsigned char limit = (unsigned char)~0u;
 	while (--limit != 0)
 	{
 #ifdef _MSC_VER // С помощью данной дерективы мы понимаем, какой компилятор.
@@ -131,7 +131,15 @@ struct String * String_constructCopyMalloc(char * message, size_t len)
 	return output;
 }
 
-
+void ElmBD_freeALL(struct ElmBD_Array input)
+{
+	for (unsigned i = 0; i < input.length; i++)
+	{
+		free(input.elms[i].message->message);
+		free(input.elms[i].message);
+	}
+	free(input.elms);
+}
 
 // Спрашивает у пользователя 1 строку БД
 struct ElmBD ElmBD_getUserDataElmMalloc(FILE * fpIN, FILE * fpOUT)
@@ -223,31 +231,33 @@ int main(int argc, char * argv[])
 {
 	char filename[1024] = { 0 };
 	UserInterface_GetStr("file: ", filename, sizeof(filename), stdin, stdout);
-	FILE * INPUT = fopen(filename, "r");
-	if (INPUT == NULL) return;
-	struct ElmBD_Array userDATA = ElmBD_getUserDataAllMalloc(INPUT, stdout);
-	fclose(INPUT);
+	//while (TRUE) На случай тестирования утечки памяти.
+	{
+		FILE * INPUT = fopen(filename, "r");
+		if (INPUT == NULL) return;
+		struct ElmBD_Array userDATA = ElmBD_getUserDataAllMalloc(INPUT, stdout);
+		fclose(INPUT);
+		ElmBD_PrintData(stdout, userDATA);
 
-	ElmBD_PrintData(stdout, userDATA);
-	FILE * fpout_bin = fopen("binary_out.bin", "wb");
-	FILE * fpout_txt = fopen("text_out.txt", "w");
-	ElmBD_PrintData(fpout_txt, userDATA); // Печать массива данных
-	ElmBD_Write_ElmsBD_ToBinary(userDATA.elms, userDATA.length, fpout_bin);
-	fclose(fpout_txt);
-	fclose(fpout_bin);
-	//ElmBD_destroy(userDATA); // деконструктор, очитска памяти.
+		FILE * fpout_bin = fopen("binary_out.bin", "wb");
+		FILE * fpout_txt = fopen("text_out.txt", "w");
+		ElmBD_PrintData(fpout_txt, userDATA); // Печать массива данных
+		ElmBD_Write_ElmsBD_ToBinary(userDATA.elms, userDATA.length, fpout_bin);
+		fclose(fpout_txt);
+		fclose(fpout_bin);
+		ElmBD_freeALL(userDATA); // деконструктор, очитска памяти.
 
-	struct ElmBD_Array userDATA2;
-	FILE * fpin_bin = fopen("binary_out.bin", "rb");
-	userDATA2 = ElmBD_Read_ElmsBD_FromBinaryMalloc(fpin_bin);
-	fclose(fpin_bin);
-	ElmBD_PrintData(stdout, userDATA2); // Печать массива данных
+		FILE * fpin_bin = fopen("binary_out.bin", "rb");
+		userDATA = ElmBD_Read_ElmsBD_FromBinaryMalloc(fpin_bin);
+		fclose(fpin_bin);
+		ElmBD_PrintData(stdout, userDATA); // Печать массива данных
+		ElmBD_freeALL(userDATA);
 
-	struct ElmBD_Array userDATA3;
-	FILE * fpin_txt = fopen("text_out.txt", "r");
-	userDATA2 = ElmBD_getUserDataAllMalloc(fpin_bin, stdout);
-	fclose(fpin_txt);
-	ElmBD_PrintData(stdout, userDATA2); // Печать массива данных
-
+		FILE * fpin_txt = fopen("text_out.txt", "r");
+		userDATA = ElmBD_getUserDataAllMalloc(fpin_bin, stdout);
+		fclose(fpin_txt);
+		ElmBD_PrintData(stdout, userDATA); // Печать массива данных
+		ElmBD_freeALL(userDATA);
+	}
 	getch();
 }

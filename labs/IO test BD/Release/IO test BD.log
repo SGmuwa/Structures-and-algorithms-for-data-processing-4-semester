@@ -1,0 +1,12 @@
+﻿  Source.c
+Source.c(262): warning C4013: getch: нет определения; предполагается "extern" с возвратом типа "int"
+Source.c(236): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+Source.c(242): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+Source.c(243): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+Source.c(250): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+Source.c(256): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
