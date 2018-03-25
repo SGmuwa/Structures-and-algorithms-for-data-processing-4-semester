@@ -1,0 +1,16 @@
+﻿  Source.c
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(37): warning C4305: инициализация: усечение из "unsigned int" к "unsigned char"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(252): warning C4013: getch: нет определения; предполагается "extern" с возвратом типа "int"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(226): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(232): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(233): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(241): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(247): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
+c:\users\михаил\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\io test bd\source.c(246): warning C4101: userDATA3: неиспользованная локальная переменная
+  IO test BD.vcxproj -> C:\Users\Михаил\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\IO test BD.exe
+  IO test BD.vcxproj -> C:\Users\Михаил\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\IO test BD.pdb (Partial PDB)
