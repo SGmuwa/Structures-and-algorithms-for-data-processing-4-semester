@@ -113,19 +113,19 @@
     <Text Include="Formulation of the problem.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="z8.4 test.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Array.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="program.h" />
+    <ClInclude Include="SortMatrix.h" />
     <ClInclude Include="UserInterface.h" />
-    <ClInclude Include="z8.4 sort.h" />
+    <ClInclude Include="z8.4 test UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="program.cpp" />
+    <ClCompile Include="SortMatrix.cpp" />
+    <ClCompile Include="StarterTest.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

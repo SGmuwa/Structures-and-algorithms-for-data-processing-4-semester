@@ -1,10 +1,14 @@
 ﻿#pragma once
 
+#ifndef _INC_USERINTERFACE_
+#define _INC_USERINTERFACE_
+
 #ifndef _INC_STDIO
 #include <stdio.h>
 #endif
+#pragma once
 
-static class UserInterface
+class UserInterface
 {
 public:
 	// Отправляет пользователю сообщение, и ожидает у него ответа от 0 до maxAccess.
@@ -43,3 +47,5 @@ public:
 	// Возвращает: Целое беззнаковое число, которое передал пользователь или поток.
 	static unsigned GetUnsignedInt(char * message, unsigned min, unsigned max);
 };
+
+#endif //!_INC_USERINTERFACE_
