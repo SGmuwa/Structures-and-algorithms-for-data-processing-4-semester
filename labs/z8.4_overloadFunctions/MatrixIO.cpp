@@ -114,24 +114,36 @@ bool z8_4::MatrixIO::toString(Matrix<int> input, char * to, size_t limit)
 		< (long)limit;
 }
 
+size_t z8_4::MatrixIO::getCountForToString(Matrix<Array<char>> input)
+{
+	size_t output = 0u;
+	char buffer[64];
+	output += 3;
+	for (size_t r = 0; r < input.getRows(); r++)
+	{
+		output += 2;
+		for (size_t c = 0; c < input.getCols(); c++)
+		{
+			if (c + 1 < input.getCols())
+				output += strlen((char*)input(r, c)) + 2;
+			else output += strlen((char*)input(r, c)) + 1;
+		}
+		if (r + 1 < input.getRows())
+			output += 3;
+		else
+			output += 2;
+	}
+	return ++output;
+}
+
 size_t z8_4::MatrixIO::getCountForToString(Matrix<int> input)
 {
 	size_t output = 0;
 	char buffer[64] = { 0 };
-#ifdef _MSC_VER
-	sprintf_s(buffer, sizeof(buffer) / sizeof(char), "{ ");
-#else
-	sprintf(buffer, "{ ");
-#endif
-	output += strlen(buffer);
+	output += 3;
 	for (size_t r = 0; r < input.getRows(); r++)
 	{
-#ifdef _MSC_VER
-		sprintf_s(buffer, sizeof(buffer) / sizeof(char), "{ ",);
-#else
-		sprintf(buffer, "{ ");
-#endif
-		output += strlen(buffer);
+		output += 2;
 		for (size_t c = 0; c < input.getCols(); c++)
 		{
 			if (c + 1 < input.getCols())
@@ -144,30 +156,22 @@ size_t z8_4::MatrixIO::getCountForToString(Matrix<int> input)
 #ifdef _MSC_VER
 				sprintf_s(buffer, sizeof(buffer) / sizeof(char), "%d ", input(r, c));
 #else
-				sprintf(buffer, "%s%d ", to, input(r, c));
+				sprintf(buffer, "%d ", input(r, c));
 #endif
 			output += strlen(buffer);
 		}
 		if (r + 1 < input.getRows())
-#ifdef _MSC_VER
-			sprintf_s(to, limit, "%s}, ", to);
-#else
-			sprintf(to, "%s}, ", to);
-#endif
+			output += 3;
 		else
-#ifdef _MSC_VER
-			sprintf_s(to, limit, "%s} ", to);
-#else
-			sprintf(to, "%s} ", to);
-#endif
+			output += 2;
 	}
-	return (long)
+	return ++output/*(long)
 #ifdef _MSC_VER
-		sprintf_s(to, limit, "%s}", to)
+		sprintf_s(buffer, sizeof(buffer) / sizeof(char), "}")
 #else
-		sprintf(to, "%s}", to)
+		sprintf(buffer, "}")
 #endif
-		< (long)limit;
+		< (long)limit*/;
 }
 
 
@@ -218,9 +222,15 @@ z8_4::Matrix<int> z8_4::MatrixIO::parseInt(char * from)
 	return output;
 }
 
+#define SUPPPPPPPPPEEEEERRRRRR char * buffer = new char[getCountForToString(input)]; toString(input, buffer, sizeof(buffer)); size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter); delete[] buffer; return output;
 size_t z8_4::MatrixIO::print(Matrix<Array<char>> input, FILE * toWriter)
 {
-	char buffer[1024 * 10] = { 0 };
-	toString(input, buffer, sizeof(buffer));
-	return fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter);
+	SUPPPPPPPPPEEEEERRRRRR
 }
+
+size_t z8_4::MatrixIO::print(Matrix<int> input, FILE * toWriter)
+{
+	SUPPPPPPPPPEEEEERRRRRR
+}
+
+#undef SUPPPPPPPPPEEEEERRRRRR

@@ -32,12 +32,17 @@ namespace z8_4
 		// Возвращает: количество символов, которое понадобится для отображения матрицы в текстовый вид.
 		static size_t getCountForToString(Matrix<int> input);
 
+		// Возвращает: количество символов, которое понадобится для отображения матрицы в текстовый вид.
+		static size_t getCountForToString(Matrix<Array<char>> input);
+
 		// Считывает матрицу из текстового вида.
 		// char * from: участок памяти, откуда надо считывать текстовую информацию.
 		// Возвращает: экземпляр матрицы, прочитанный из текстового вида.
 		static Matrix<int> parseInt(char * from);
 
 		static size_t print(Matrix<Array<char>> input, FILE * toWriter);
+
+		static size_t print(Matrix<int> input, FILE * toWriter);
 
 	};
 }
