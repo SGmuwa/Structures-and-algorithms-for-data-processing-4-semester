@@ -15,7 +15,7 @@ namespace z8_4
 		// T * Data: Передайте указатель, в котором хранятся данные.
 		// size_t length: количество элементов.
 		// bool needFree = false: Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
-		Array(T * Data, size_t length, bool needFree = false);
+		Array(T * Data, size_t length, bool needFree);
 		~Array();
 
 		// Копирование данных из оперативной памяти в новое место.
@@ -31,13 +31,12 @@ namespace z8_4
 
 		T operator[](size_t index);
 
-		operator char*();
+		operator T*();
 
 	private:
 		size_t length;
 		T * data;
-		// bool isCopy = false: Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
-		bool isCopy;
+		bool isCopy; //Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
 	};
 
 }

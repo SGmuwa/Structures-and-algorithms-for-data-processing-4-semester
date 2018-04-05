@@ -1,6 +1,12 @@
 ﻿#include "program.h"
 
+#ifndef _INC_Z8_4_TEST_USERINRERFACE
+#include "z8.4 test UserInterface.h"
+#endif
 
+#ifndef _INC_STRING
+#include <string.h>
+#endif // !_INC_STRING
 
 int main(int argc, char * argv[]) {  return z8_4::program().main(argc, argv); }
 
@@ -26,7 +32,7 @@ unsigned z8_4::program::StartTest()
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование началось.\n");
 	
-	errors += Test_ParseToString();
+	errors += Test_ParseToStringInt();
 	errors += Test_SortMatrixInt();
 	errors += Test_SortMatrixString();
 
@@ -34,11 +40,11 @@ unsigned z8_4::program::StartTest()
 	return errors;
 }
 
-unsigned z8_4::program::Test_ParseToString()
+unsigned z8_4::program::Test_ParseToStringInt()
 {
 	test_UserInterface::log(true, "\nPARSE-toString START\n");
 	unsigned errors = 0;
-	Matrix<int> mat = Matrix<int>::parse("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
+	Matrix<int> mat = Matrix<int>::parseInt("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
 	int i = 1;
 	for (size_t r = 0; r < mat.getRows(); r++)
 		for (size_t c = 0; c < mat.getCols(); c++)
@@ -53,7 +59,7 @@ unsigned z8_4::program::Test_ParseToString()
 		}
 	test_UserInterface::log(true, "Parse end.");
 	char MemoryToString[64]; // Участок памяти хранения вывода toString.
-	toString(mat, MemoryToString, sizeof(MemoryToString));
+	z8_4::MatrixIO::toString(mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{
@@ -63,7 +69,7 @@ unsigned z8_4::program::Test_ParseToString()
 	else test_UserInterface::log(true, "String does coincide with the expected.");
 
 	mat.~Matrix();
-	mat = Matrix<int>::parse(MemoryToString);
+	mat = Matrix<int>::parseInt(MemoryToString);
 
 	i = 1;
 	for (size_t r = 0; r < mat.getRows(); r++)
@@ -79,7 +85,7 @@ unsigned z8_4::program::Test_ParseToString()
 		}
 	test_UserInterface::log(true, "Parse end.");
 
-	toString(mat, MemoryToString, sizeof(MemoryToString));
+	MatrixIO::toString(mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{

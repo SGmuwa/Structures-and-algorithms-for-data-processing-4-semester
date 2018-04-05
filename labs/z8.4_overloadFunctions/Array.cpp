@@ -9,7 +9,7 @@ z8_4::Array<T>::Array()
 }
 
 template<typename T>
-z8_4::Array<T>::Array(T * Data, size_t length, bool needFree = false)
+z8_4::Array<T>::Array(T * Data, size_t length, bool needFree)
 {
 	data = Data;
 	Array<T>::length = length;
@@ -22,14 +22,6 @@ z8_4::Array<T>::~Array()
 	if (isCopy) delete[] data; 
 }
 
-/*
-template<typename T>
-Array<T> z8_4::Array<T>::CreateCopyArray(T * Data, size_t Length)
-{
-	T * a = new T[Length];
-	memcpy();
-	return z8_4::Array<T>::Array(a, Length, true);
-}*/
 
 template<typename T>
 z8_4::Array<T> z8_4::Array<T>::CreateCopyArray(const T * Data, size_t Length)
@@ -42,17 +34,17 @@ z8_4::Array<T> z8_4::Array<T>::CreateCopyArray(const T * Data, size_t Length)
 template<typename T>
 size_t z8_4::Array<T>::getLength()
 {
-	return return length;
+	return length;
 }
 
 template<typename T>
 T z8_4::Array<T>::operator[](size_t index)
 {
-	return T[index];
+	return data[index];
 }
 
 template<typename T>
-z8_4::Array<T>::operator char*()
+z8_4::Array<T>::operator T*()
 {
 	return data;
 }

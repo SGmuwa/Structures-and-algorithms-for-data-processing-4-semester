@@ -10,9 +10,6 @@
 #include "Array.h"
 #endif
 
-#ifndef _INC_STDIO
-#include <stdio.h>
-#endif // !_INC_STDIO
 
 //#include <iostream>
 namespace z8_4
@@ -46,11 +43,6 @@ namespace z8_4
 		// Получить количество столбцов.
 		size_t inline getCols();
 
-		// Считывает матрицу из текстового вида.
-		// char * from: участок памяти, откуда надо считывать текстовую информацию.
-		// Возвращает: экземпляр матрицы, прочитанный из текстового вида.
-		static Matrix<int> parse(char * from);
-
 
 
 	private:
@@ -60,18 +52,5 @@ namespace z8_4
 
 		void allocSpace();
 	};
-
-	// Отображает матрицу в виде текста.
-	// char * to: указатель на место отправления текстовой информации.
-	// size_t limit: размер доступной информации.
-	// Возвращает: True, если объект Matrix<T> поместился полностью. Иначе: False.
-	bool toString(Matrix<Array<char>> input, char * to, size_t limit);
-
-	// Отображает матрицу в виде текста.
-	// char * to: указатель на место отправления текстовой информации.
-	// size_t limit: размер доступной информации.
-	// Возвращает: True, если объект Matrix<T> поместился полностью. Иначе: False.
-	bool toString(Matrix<int> input, char * to, size_t limit);
-	// К сожалению, разработка Parse для String затянется на долго. Поэтому я пропущу это.
 }
 #endif // !_INC_MATRIX_

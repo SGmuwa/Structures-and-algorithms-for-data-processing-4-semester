@@ -1,18 +1,14 @@
 ﻿  program.cpp
-  matrix.cpp
-  UserInterface.cpp
-  StarterTest.cpp
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\matrix.cpp(22): warning C5037: "z8_4::Matrix<T>::Matrix": внешнее определение члена шаблона класса не может иметь аргументы по умолчанию
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\matrix.cpp(190): error C2440: <function-style-cast>: невозможно преобразовать "initializer list" в "z8_4::Matrix<int>"
+  f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\matrix.cpp(190): note: Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(67): error C3861: toString: идентификатор не найден
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(93): error C3861: toString: идентификатор не найден
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(110): error C2440: <function-style-cast>: невозможно преобразовать "initializer list" в "z8_4::Matrix<int>"
+  f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(110): note: Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
+f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(152): error C2440: <function-style-cast>: невозможно преобразовать "initializer list" в "z8_4::Matrix<z8_4::Array<char>>"
+  f:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(152): note: Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
   SortMatrix.cpp
-  Array.cpp
+  StarterTest.cpp
+  UserInterface.cpp
   Создание кода...
-matrix.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall z8_4::Array<char>::~Array<char>(void)" (??1?$Array@D@z8_4@@QAE@XZ) в функции "public: void * __thiscall z8_4::Array<char>::`vector deleting destructor'(unsigned int)" (??_E?$Array@D@z8_4@@QAEPAXI@Z)
-program.obj : error LNK2001: неразрешенный внешний символ ""public: __thiscall z8_4::Array<char>::~Array<char>(void)" (??1?$Array@D@z8_4@@QAE@XZ)"
-SortMatrix.obj : error LNK2001: неразрешенный внешний символ ""public: __thiscall z8_4::Array<char>::~Array<char>(void)" (??1?$Array@D@z8_4@@QAE@XZ)"
-matrix.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall z8_4::Array<char>::operator char *(void)" (??B?$Array@D@z8_4@@QAEPADXZ) в функции "bool __cdecl z8_4::toString(class z8_4::Matrix<class z8_4::Array<char> >,char *,unsigned int)" (?toString@z8_4@@YA_NV?$Matrix@V?$Array@D@z8_4@@@1@PADI@Z)
-program.obj : error LNK2001: неразрешенный внешний символ ""public: __thiscall z8_4::Array<char>::operator char *(void)" (??B?$Array@D@z8_4@@QAEPADXZ)"
-SortMatrix.obj : error LNK2001: неразрешенный внешний символ ""public: __thiscall z8_4::Array<char>::operator char *(void)" (??B?$Array@D@z8_4@@QAEPADXZ)"
-program.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall z8_4::Matrix<class z8_4::Array<char> >::Matrix<class z8_4::Array<char> >(unsigned int,unsigned int)" (??0?$Matrix@V?$Array@D@z8_4@@@z8_4@@QAE@II@Z) в функции "public: void __thiscall z8_4::program::GetStarterSizeMatrix<class z8_4::Array<char> >(class z8_4::Matrix<class z8_4::Array<char> > *)" (??$GetStarterSizeMatrix@V?$Array@D@z8_4@@@program@z8_4@@QAEXPAV?$Matrix@V?$Array@D@z8_4@@@1@@Z)
-program.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall z8_4::Matrix<class z8_4::Array<char> >::Matrix<class z8_4::Array<char> >(class z8_4::Matrix<class z8_4::Array<char> > const &)" (??0?$Matrix@V?$Array@D@z8_4@@@z8_4@@QAE@ABV01@@Z) в функции "private: unsigned int __thiscall z8_4::program::Test_SortMatrixString(void)" (?Test_SortMatrixString@program@z8_4@@AAEIXZ)
-program.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: __thiscall z8_4::Array<char>::Array<char>(char *,unsigned int,bool)" (??0?$Array@D@z8_4@@QAE@PADI_N@Z) в функции "private: void __thiscall z8_4::program::GetStarterMatrix(class z8_4::Matrix<class z8_4::Array<char> > &)" (?GetStarterMatrix@program@z8_4@@AAEXAAV?$Matrix@V?$Array@D@z8_4@@@2@@Z)
-program.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: static class z8_4::Array<char> __cdecl z8_4::Array<char>::CreateCopyArray(char const *,unsigned int)" (?CreateCopyArray@?$Array@D@z8_4@@SA?AV12@PBDI@Z) в функции "private: unsigned int __thiscall z8_4::program::Test_SortMatrixString(void)" (?Test_SortMatrixString@program@z8_4@@AAEIXZ)
-G:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z8.4_overloadFunctions.exe : fatal error LNK1120: неразрешенных внешних элементов: 6

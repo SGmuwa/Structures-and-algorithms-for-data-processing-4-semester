@@ -7,10 +7,6 @@
 #include <locale.h>
 #endif
 
-#ifndef _INC_STRING
-#include <string.h>
-#endif // !_INC_STRING
-
 #ifndef _INC_MATRIX_
 #include "matrix.h"
 #endif
@@ -19,13 +15,14 @@
 #include "UserInterface.h"
 #endif
 
-#ifndef _INC_Z8_4_TEST_USERINRERFACE
-#include "z8.4 test UserInterface.h"
-#endif
-
 #ifndef _INC_SORTMATRIX_
 #include "SortMatrix.h"
 #endif
+
+#ifndef _INC_MATRIX_WRITER_
+#include "MatrixWriter.h"
+#endif //!_INC_MATRIX_WRITER_
+
 
 namespace z8_4
 {
@@ -46,7 +43,7 @@ namespace z8_4
 		void GetStarterSizeMatrix(Matrix<T> * in);
 
 	private:
-		unsigned Test_ParseToString();
+		unsigned Test_ParseToStringInt();
 		unsigned Test_SortMatrixInt();
 		unsigned Test_SortMatrixString();
 		void GetStarterMatrix(Matrix<int> & in);
