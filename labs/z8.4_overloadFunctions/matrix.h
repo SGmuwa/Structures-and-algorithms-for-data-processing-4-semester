@@ -16,19 +16,56 @@ namespace z8_4
 {
 	template <typename T>
 	class Matrix {
+	private:
+		size_t rows_, cols_;
+		T **p;
+
+		void allocSpace()
+		{
+			p = new T*[rows_];
+			for (size_t i = 0; i < rows_; ++i) {
+				p[i] = new T[cols_];
+			}
+		}
+
 	public:
 		// Создаёт экземпляр матрицы.
 		// size_t rows: количество строк в матрице.
 		// size_t cols: количество столбцов в матрице.
-		// bool IsNeedDelete = false: True, чтобы при ~Matrix() вызвать ~T(); для каждого элемента. Если вызывать ~T(); для каждого элемента не нужно, оставить False.
-		Matrix(size_t rows, size_t cols, bool IsNeedDelete);
-		Matrix(size_t rows, size_t cols);
+		Matrix(size_t rows, size_t cols)
+			: rows_(rows), cols_(cols)
+		{
+			allocSpace();
+			for (size_t i = 0; i < rows_; ++i) {
+				for (size_t j = 0; j < cols_; ++j) {
+					p[i][j] = T();
+				}
+			}
+		}
 		Matrix();
-		~Matrix();
-		Matrix(const Matrix<T>&);
+
+		~Matrix()
+		{
+			for (size_t i = 0; i < rows_; ++i) {
+				delete[] p[i];
+			}
+			delete[] p;
+		}
+
+		Matrix(const Matrix<T>& m) : rows_(m.rows_), cols_(m.cols_)
+		{
+			allocSpace();
+			p = m.p;
+			/*for (size_t i = 0; i < rows_; ++i) {
+				for (size_t j = 0; j < cols_; ++j) {
+					p[i][j];// = m.p[i][j];
+				}
+			}*/
+		}
 		//Matrix<T>& operator=(const Matrix<T>&);
 
-		inline T& operator()(size_t r, size_t c) { return p[r][c]; }
+		//inline T& operator()(size_t r, size_t c) { return p[r][c]; }
+		inline T& operator()(size_t r, size_t c) const { return p[r][c]; }
 
 
 		void swapRows(size_t, size_t);
@@ -36,21 +73,30 @@ namespace z8_4
 
 		Matrix<T> augment(Matrix<T> A, Matrix<T> B);
 
-		Matrix<T> inverse();
-
 		// Получить количество строк.
-		size_t inline getRows();
+		const size_t inline getRows() const
+		{
+			return rows_;
+		}
+
 		// Получить количество столбцов.
-		size_t inline getCols();
+		const size_t inline getCols() const
+		{
+			return cols_;
+		}
 
-
-
-	private:
-		size_t rows_, cols_;
-		T **p;
-		bool isNeedDelete;
-
-		void allocSpace();
+		inline operator Matrix<const T>() const
+		{
+			struct
+			{
+				size_t rows_, cols_;
+				const T ** p;
+			} a;
+			a.cols_ = cols_;
+			a.rows_ = rows_;
+			a.p = (const T**)p;
+			return *(Matrix<const T> *)(void*)&a;
+		}
 	};
 }
 #endif // !_INC_MATRIX_

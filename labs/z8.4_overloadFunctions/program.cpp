@@ -44,7 +44,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 {
 	test_UserInterface::log(true, "\nPARSE-toString START\n");
 	unsigned errors = 0;
-	Matrix<int> mat = Matrix<int>::parseInt("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
+	Matrix<int> mat = MatrixIO::parseInt("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
 	int i = 1;
 	for (size_t r = 0; r < mat.getRows(); r++)
 		for (size_t c = 0; c < mat.getCols(); c++)
@@ -68,8 +68,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 	}
 	else test_UserInterface::log(true, "String does coincide with the expected.");
 
-	mat.~Matrix();
-	mat = Matrix<int>::parseInt(MemoryToString);
+	mat = MatrixIO::parseInt(MemoryToString);
 
 	i = 1;
 	for (size_t r = 0; r < mat.getRows(); r++)
@@ -93,7 +92,6 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		errors++;
 	}
 	else test_UserInterface::log(true, "String does coincide with the expected.");
-	mat.~Matrix();
 	test_UserInterface::log(true, "PARSE-toString END");
 	return errors;
 }
@@ -135,7 +133,6 @@ unsigned z8_4::program::Test_SortMatrixInt()
 		}
 		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
 	}
-	mat.~Matrix();
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
 }
@@ -152,7 +149,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 		for (size_t c = 0; c < mat.getCols(); c++)
 		{
 			mat(r, c) = Array<char>::CreateCopyArray(a[i], sizeof(a[i]));
-			strstr(mat(r, c), a[i++]);
+			strstr((char *)mat(r, c), a[i++]);
 		}
 
 	SortMatrix::Sort_by_z8_4(mat);
@@ -179,7 +176,6 @@ unsigned z8_4::program::Test_SortMatrixString()
 		}
 		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
 	}
-	mat.~Matrix();
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
 }

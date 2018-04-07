@@ -19,61 +19,15 @@
  ********************************/
 
 template <typename T>
-z8_4::Matrix<T>::Matrix(size_t rows, size_t cols, bool IsNeedDelete)
-	: rows_(rows), cols_(cols), isNeedDelete(IsNeedDelete)
-{
-    allocSpace();
-    for (size_t i = 0; i < rows_; ++i) {
-        for (size_t j = 0; j < cols_; ++j) {
-            p[i][j] = T();
-        }
-    }
-}
-
-template <typename T>
-z8_4::Matrix<T>::Matrix(size_t rows, size_t cols)
-	: rows_(rows), cols_(cols), isNeedDelete(false)
-{
-	allocSpace();
-	for (size_t i = 0; i < rows_; ++i) {
-		for (size_t j = 0; j < cols_; ++j) {
-			p[i][j] = T();
-		}
-	}
-}
-
-template <typename T>
-z8_4::Matrix<T>::Matrix() : rows_(1), cols_(1), isNeedDelete(false)
+z8_4::Matrix<T>::Matrix() : rows_(1), cols_(1)
 {
     allocSpace();
     p[0][0] = 0;
 }
 
-template <typename T>
-z8_4::Matrix<T>::~Matrix()
-{
-    for (size_t i = 0; i < rows_; ++i) {
-		if(isNeedDelete)
-			for (size_t j = 0; j < cols_; j++)
-			{
-				//delete p[i][j];
-				// p[i][j].~T();
-			}
-        delete[] p[i];
-    }
-    delete[] p;
-}
 
-template <typename T>
-z8_4::Matrix<T>::Matrix(const Matrix<T>& m) : rows_(m.rows_), cols_(m.cols_)
-{
-    allocSpace();
-    for (size_t i = 0; i < rows_; ++i) {
-        for (size_t j = 0; j < cols_; ++j) {
-            p[i][j] = m.p[i][j];
-        }
-    }
-}
+
+
 
 /*
 // Я не знаю, как очистить тогда память у отработанного const Matrix& m, поэтому я закомментирую данный оператор
@@ -145,44 +99,11 @@ z8_4::Matrix<T> z8_4::Matrix<T>::augment(Matrix<T> A, Matrix<T> B)
     return AB;
 }
 
-template <typename T>
-z8_4::Matrix<T> z8_4::Matrix<T>::inverse()
-{
-    Matrix<T> I = Matrix<T>::createIdentity(rows_);
-    Matrix<T> AI = Matrix<T>::augment(*this, I);
-    Matrix<T> U = AI.gaussianEliminate();
-    Matrix<T> IAInverse = U.rowReduceFromGaussian();
-    Matrix<T> AInverse(rows_, cols_);
-    for (size_t i = 0; i < AInverse.rows_; ++i) {
-        for (size_t j = 0; j < AInverse.cols_; ++j) {
-            AInverse(i, j) = IAInverse(i, j + cols_);
-        }
-    }
-    return AInverse;
-}
 
-template<typename T>
-size_t inline z8_4::Matrix<T>::getRows()
-{
-	return cols_;
-}
-
-template<typename T>
-size_t inline z8_4::Matrix<T>::getCols()
-{
-	return cols_;
-}
 
 
 
 /* PRIVATE HELPER FUNCTIONS
  ********************************/
 
-template <typename T>
-void z8_4::Matrix<T>::allocSpace()
-{
-    p = new T*[rows_];
-    for (size_t i = 0; i < rows_; ++i) {
-        p[i] = new T[cols_];
-    }
-}
+

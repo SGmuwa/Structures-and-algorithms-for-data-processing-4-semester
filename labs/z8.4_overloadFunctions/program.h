@@ -20,7 +20,7 @@
 #endif
 
 #ifndef _INC_MATRIX_WRITER_
-#include "MatrixWriter.h"
+#include "MatrixIO.h"
 #endif //!_INC_MATRIX_WRITER_
 
 

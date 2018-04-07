@@ -9,7 +9,17 @@
 #include "MatrixIO.h"
 #endif //!_INC_STDIO
 
-bool z8_4::MatrixIO::toString(Matrix<Array<char>> input, char * to, size_t limit)
+#ifndef _INC_USERINTERFACE_
+#include "UserInterface.h"
+#endif
+
+#ifndef _INC_STDLIB
+#include <stdlib.h>
+#endif
+
+using namespace z8_4;
+
+bool MatrixIO::toString(const Matrix<const Array<char>> & input, char * to, size_t limit)
 {
 #ifdef _MSC_VER
 	sprintf_s(to, limit, "{ ");
@@ -62,7 +72,7 @@ bool z8_4::MatrixIO::toString(Matrix<Array<char>> input, char * to, size_t limit
 #endif
 }
 
-bool z8_4::MatrixIO::toString(Matrix<int> input, char * to, size_t limit)
+bool MatrixIO::toString(const Matrix<const int> & input, char * to, size_t limit)
 {
 
 #ifdef _MSC_VER
@@ -114,10 +124,9 @@ bool z8_4::MatrixIO::toString(Matrix<int> input, char * to, size_t limit)
 		< (long)limit;
 }
 
-size_t z8_4::MatrixIO::getCountForToString(Matrix<Array<char>> input)
+size_t MatrixIO::getCountForToString(const Matrix<const Array<char>> & input)
 {
 	size_t output = 0u;
-	char buffer[64];
 	output += 3;
 	for (size_t r = 0; r < input.getRows(); r++)
 	{
@@ -125,8 +134,8 @@ size_t z8_4::MatrixIO::getCountForToString(Matrix<Array<char>> input)
 		for (size_t c = 0; c < input.getCols(); c++)
 		{
 			if (c + 1 < input.getCols())
-				output += strlen((char*)input(r, c)) + 2;
-			else output += strlen((char*)input(r, c)) + 1;
+				output += strlen((const char*)input(r, c)) + 2;
+			else output += strlen((const char*)input(r, c)) + 1;
 		}
 		if (r + 1 < input.getRows())
 			output += 3;
@@ -136,7 +145,7 @@ size_t z8_4::MatrixIO::getCountForToString(Matrix<Array<char>> input)
 	return ++output;
 }
 
-size_t z8_4::MatrixIO::getCountForToString(Matrix<int> input)
+size_t MatrixIO::getCountForToString(const Matrix<const int> & input)
 {
 	size_t output = 0;
 	char buffer[64] = { 0 };
@@ -175,7 +184,7 @@ size_t z8_4::MatrixIO::getCountForToString(Matrix<int> input)
 }
 
 
-z8_4::Matrix<int> z8_4::MatrixIO::parseInt(char * from)
+Matrix<int> MatrixIO::parseInt(char * from)
 {
 	char * start = from;
 	size_t countStart = 0; // Считает количество символов '{'.
@@ -199,7 +208,7 @@ z8_4::Matrix<int> z8_4::MatrixIO::parseInt(char * from)
 		{
 			countEnd++;
 		}
-		if (*from == '\0') return Matrix<int>();
+		if (*from == '\0') return Matrix<int>(0, 0);
 	}
 	Matrix<int> output = Matrix<int>(countStart - 1, getCountDigit / (countStart - 1));
 	from = start;
@@ -222,15 +231,34 @@ z8_4::Matrix<int> z8_4::MatrixIO::parseInt(char * from)
 	return output;
 }
 
-#define SUPPPPPPPPPEEEEERRRRRR char * buffer = new char[getCountForToString(input)]; toString(input, buffer, sizeof(buffer)); size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter); delete[] buffer; return output;
-size_t z8_4::MatrixIO::print(Matrix<Array<char>> input, FILE * toWriter)
+Matrix<int> MatrixIO::parseInt(FILE * from, FILE * questions)
 {
-	SUPPPPPPPPPEEEEERRRRRR
+	size_t NumberOfAttempts = 0u;
+	Matrix<int> output = Matrix<int>(0u, 2u);
+	if (from == NULL) return Matrix<int>(0u, 0u);
+	char * buffer = new char[1024 * 4 * 10]; // 40 килобайт текстовой информации!
+	do
+	{
+		UserInterface::GetStr("Input Matrix. Example: { {1, 2, 3}, {4, 5, 6}, {7, 8, 9}}\n", buffer, 1024 * 40, from, questions);
+		output = parseInt(buffer);
+	} while (output.getCols() == 2 && output.getRows() == 0);
+	return output;
 }
 
-size_t z8_4::MatrixIO::print(Matrix<int> input, FILE * toWriter)
+
+
+size_t MatrixIO::print(const Matrix<const Array<char>> & input, FILE * toWriter)
 {
-	SUPPPPPPPPPEEEEERRRRRR
+	char * buffer = new char[getCountForToString(input)];
+	toString(input, buffer, sizeof(buffer));
+	size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter);
+	delete[] buffer; return output;
 }
 
-#undef SUPPPPPPPPPEEEEERRRRRR
+size_t MatrixIO::print(const Matrix<const int> & input, FILE * toWriter)
+{
+	char * buffer = new char[getCountForToString(input)];
+	toString(input, buffer, sizeof(buffer));
+	size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter);
+	delete[] buffer; return output;
+}

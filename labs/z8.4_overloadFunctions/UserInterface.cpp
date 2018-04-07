@@ -1,21 +1,23 @@
 ﻿#include "UserInterface.h"
 
 
-unsigned char UserInterface::GetChek(char * message, unsigned char maxAccess)
+unsigned char UserInterface::GetChek(const char * message, unsigned char maxAccess, FILE * fpIN/* = stdin*/, FILE * fpOUT/* = stdout*/)
 {
-	unsigned char buffer = 0;
+	unsigned char buffer = ~(unsigned char)0u;
+	if (fpIN == NULL) return 0;
 	while (true)
 	{
+		if (fpOUT != NULL && message != NULL)
 #ifdef _MSC_VER
-		printf_s("%s", message);
+			fprintf_s(fpOUT, "%s", message);
 #else
-		printf("%s", message);
+			fprintf(fpOUT, "%s", message);
 #endif // _MSC_VER
 		if (
 #ifdef _MSC_VER
-			scanf_s("%hhu", &buffer)
+			fscanf_s(fpIN, "%hhu", &buffer)
 #else
-			scanf("%hhu", &buffer)
+			fscanf(fpIN, "%hhu", &buffer)
 #endif // _MSC_VER
 			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
 			&& // Сработает, если компилатор проверяет слева на право выражения. Иначе: будет баг в использовании.
@@ -23,25 +25,25 @@ unsigned char UserInterface::GetChek(char * message, unsigned char maxAccess)
 		{
 			break;
 		}
-		if (buffer == 0)
+		if (buffer == ~'\0')
 		{
 #ifdef _MSC_VER
-			scanf_s("%*s");
+			fscanf_s(fpIN, "%*s");
 #else
-			scanf("%*s");
+			fscanf(fpIN, "%*s");
 #endif // _MSC_VER
 		}
-		buffer = 0;
+		buffer = ~(unsigned char)0u;
 	}
 #ifdef _MSC_VER
-	scanf_s("%*c");
+	fscanf_s(fpIN, "%*c");
 #else
-	scanf("%*c");
+	fscanf(fpIN, "%*c");
 #endif // _MSC_VER
 	return buffer;
 }
 
-unsigned UserInterface::GetUnsignedInt(char * message)
+unsigned UserInterface::GetUnsignedInt(const char * message)
 {
 	unsigned buffer = 0;
 	while (true)
@@ -76,21 +78,23 @@ unsigned UserInterface::GetUnsignedInt(char * message)
 	return buffer;
 }
 
-float UserInterface::GetFloat(char * message)
+float UserInterface::GetFloat(const char * message, FILE * fpIN = stdin, FILE * fpOUT = stdout)
 {
+	if (fpIN == NULL) return 0.0f;
 	float buffer = 0;
 	while (true)
 	{
+		if (fpOUT != NULL)
 #ifdef _MSC_VER
-		printf_s("%s", message);
+			fprintf_s(fpOUT, "%s", message);
 #else
-		printf("%s", message);
+			printf(fpOUT, "%s", message);
 #endif // _MSC_VER
 		if (
 #ifdef _MSC_VER
-			scanf_s("%f", &buffer)
+			fscanf_s(fpIN, "%f", &buffer)
 #else
-			scanf("%f", &buffer)
+			fscanf(fpIN, "%f", &buffer)
 #endif // _MSC_VER
 			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
 			)
@@ -98,22 +102,23 @@ float UserInterface::GetFloat(char * message)
 			break;
 		}
 #ifdef _MSC_VER
-		scanf_s("%*s");
+		fscanf_s(fpIN, "%*s");
 #else
-		scanf("%*s");
+		fscanf(fpIN, "%*s");
 #endif // _MSC_VER
 	}
 #ifdef _MSC_VER
-	scanf_s("%*c");
+	fscanf_s(fpIN, "%*c");
 #else
-	scanf("%*c");
+	fscanf(fpIN, "%*c");
 #endif // _MSC_VER
 	return buffer;
 }
 
-size_t UserInterface::GetStr(char * message, char * To, size_t countTo, FILE * fpIN, FILE * fpOUT)
+size_t UserInterface::GetStr(const char * message, char * To, size_t countTo, FILE * fpIN, FILE * fpOUT)
 {
-	fprintf(fpOUT, "%s Use CTRL + 2 for end.\n", message);
+	if (fpIN == NULL) return 0u;
+	if (fpOUT != NULL) fprintf(fpOUT, "%s Use CTRL + 2 or CTRL + A, CTRL + B, CTRL + D for end.\n", message);
 	char * i = To - 1; // Уменьшаем на 1, так как в цикле будет прибавление
 	do {
 #ifdef _MSC_VER // Для компилятора Visual Studio
@@ -131,7 +136,7 @@ size_t UserInterface::GetStr(char * message, char * To, size_t countTo, FILE * f
 	return i - To + 1; // +1 так как нужно количество элементов, а не расстояние между первым и последним.
 }
 
-unsigned UserInterface::GetInt(char * message)
+unsigned UserInterface::GetInt(const char * message)
 {
 	int buffer = 0;
 	while (true)
