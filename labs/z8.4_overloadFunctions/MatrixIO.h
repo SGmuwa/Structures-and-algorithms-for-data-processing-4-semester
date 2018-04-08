@@ -38,9 +38,9 @@ namespace z8_4
 		// Считывает матрицу из текстового вида.
 		// char * from: участок памяти, откуда надо считывать текстовую информацию.
 		// Возвращает: экземпляр матрицы, прочитанный из текстового вида.
-		static Matrix<int> parseInt(char * from);
+		static Matrix<int> * parseInt(char * from);
 
-		static Matrix<int> parseInt(FILE * from, FILE * questions);
+		static Matrix<int> * parseInt(FILE * from, FILE * questions);
 
 		static size_t print(const Matrix<const Array<char>> & input, FILE * toWriter);
 

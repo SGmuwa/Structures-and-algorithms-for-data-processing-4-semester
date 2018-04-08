@@ -184,14 +184,14 @@ size_t MatrixIO::getCountForToString(const Matrix<const int> & input)
 }
 
 
-Matrix<int> MatrixIO::parseInt(char * from)
+Matrix<int> * MatrixIO::parseInt(char * from)
 {
 	char * start = from;
 	size_t countStart = 0; // Считает количество символов '{'.
 	size_t getCountDigit = 0; // Считает количество цифр в from.
 	bool isThisNumber_getCountDigit = false; // Используется для getCountDigit как флаг. True - если предыдущий символ является цифрой. Иначе - false.
 	size_t countEnd = 0; // Считает количество символов '}'.
-	for (; countStart == countEnd && countStart != 0; from++)
+	for (; countStart - 1 >= countEnd || countEnd == 0; from++)
 	{
 		if (*from >= '0' && *from <= '9')
 		{
@@ -199,49 +199,61 @@ Matrix<int> MatrixIO::parseInt(char * from)
 				getCountDigit++;
 			isThisNumber_getCountDigit = true;
 		}
-		else isThisNumber_getCountDigit = false;
-		if (*from == '{')
+		else
 		{
-			countStart++;
-		}
-		if (*from == '}')
-		{
-			countEnd++;
-		}
-		if (*from == '\0') return Matrix<int>(0, 0);
-	}
-	Matrix<int> output = Matrix<int>(countStart - 1, getCountDigit / (countStart - 1));
-	from = start;
-	for (size_t r = 0; r < output.getRows(); r++)
-		for (size_t c = 0; c < output.getCols(); c++)
-		{
-			for (; *from != '\0'; from++)
+			isThisNumber_getCountDigit = false;
+			if (*from == '{')
 			{
-				if (*from >= '0' && *from <= '9')
-				{
+				countStart++;
+			}
+			else if (*from == '}')
+			{
+				countEnd++;
+			}
+			else if (*from == '\0') return nullptr;
+		}
+	}
+	Matrix<int> * output = new Matrix<int>(countStart - 1, getCountDigit / (countStart - 1));
+	from = start;
+	size_t r = 0;
+	size_t c = 0;
+	if (r < output->getRows() && c < output->getCols())
+		for (; *from != '\0'; from++)
+		{
+			if (*from >= '0' && *from <= '9')
+			{
 #ifndef _MSC_VER
-					sscanf(from, "%d", &output(r, c)); // Считываем это число
+				sscanf(from, "%d", &(*output)(r, c)); // Считываем это число
 #else
-					sscanf_s(from, "%d", &output(r, c));
+				sscanf_s(from, "%d", &(*output)(r, c));
 #endif
-					for (; (*from >= '0' && *from <= '9') == false; from++); // Пропускаем это число
+				c++;
+				if (c < output->getCols())
+				{
+					c = 0;
+					r++;
+					if (r < output->getRows())
+					{
+						break;
+					}
 				}
+				for (; (*from >= '0' && *from <= '9') == false; from++); // Пропускаем это число
 			}
 		}
 	return output;
 }
 
-Matrix<int> MatrixIO::parseInt(FILE * from, FILE * questions)
+Matrix<int> * MatrixIO::parseInt(FILE * from, FILE * questions)
 {
 	size_t NumberOfAttempts = 0u;
-	Matrix<int> output = Matrix<int>(0u, 2u);
-	if (from == NULL) return Matrix<int>(0u, 0u);
+	Matrix<int> * output = NULL;
+	if (from == NULL) return NULL;
 	char * buffer = new char[1024 * 4 * 10]; // 40 килобайт текстовой информации!
 	do
 	{
 		UserInterface::GetStr("Input Matrix. Example: { {1, 2, 3}, {4, 5, 6}, {7, 8, 9}}\n", buffer, 1024 * 40, from, questions);
 		output = parseInt(buffer);
-	} while (output.getCols() == 2 && output.getRows() == 0);
+	} while (output == NULL);
 	return output;
 }
 

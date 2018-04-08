@@ -54,7 +54,7 @@ namespace z8_4
 
 		Matrix(const Matrix<T>& m) : rows_(m.rows_), cols_(m.cols_)
 		{
-			allocSpace();
+			//allocSpace();
 			p = m.p;
 			/*for (size_t i = 0; i < rows_; ++i) {
 				for (size_t j = 0; j < cols_; ++j) {
@@ -65,7 +65,10 @@ namespace z8_4
 		//Matrix<T>& operator=(const Matrix<T>&);
 
 		//inline T& operator()(size_t r, size_t c) { return p[r][c]; }
-		inline T& operator()(size_t r, size_t c) const { return p[r][c]; }
+		inline T & operator()(size_t r, size_t c) const 
+		{ 
+			return (p[r][c]);
+		}
 
 
 		void swapRows(size_t, size_t);
