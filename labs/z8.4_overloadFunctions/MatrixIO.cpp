@@ -99,7 +99,7 @@ bool MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit
 #ifdef _MSC_VER
 				sprintf_s(to, limit, "%s%d", to, input[0](r, c));
 #else
-				sprintf(to, "%s%d", to, input(r, c));
+				sprintf(to, "%s%d", to, input[0](r, c));
 #endif
 		}
 		if (r + 1 < input[0].getRows())
@@ -261,16 +261,18 @@ Matrix<int> * MatrixIO::parseInt(FILE * from, FILE * questions)
 
 size_t MatrixIO::print(const Matrix<const Array<char>> * input, FILE * toWriter)
 {
-	char * buffer = new char[getCountForToString(input)];
-	toString(input, buffer, sizeof(buffer));
-	size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter);
+	size_t sizeBuffer = getCountForToString(input);
+	char * buffer = new char[sizeBuffer];
+	toString(input, buffer, sizeBuffer);
+	size_t output = fwrite(buffer, sizeof(char), sizeBuffer / sizeof(char), toWriter);
 	delete[] buffer; return output;
 }
 
 size_t MatrixIO::print(const Matrix<const int> * input, FILE * toWriter)
 {
-	char * buffer = new char[getCountForToString(input)];
-	toString(input, buffer, sizeof(buffer));
-	size_t output = fwrite(buffer, sizeof(char), sizeof(buffer) / sizeof(char), toWriter);
+	size_t sizeBuffer = getCountForToString(input);
+	char * buffer = new char[sizeBuffer];
+	toString(input, buffer, sizeBuffer);
+	size_t output = fwrite(buffer, sizeof(char), sizeBuffer / sizeof(char), toWriter);
 	delete[] buffer; return output;
 }

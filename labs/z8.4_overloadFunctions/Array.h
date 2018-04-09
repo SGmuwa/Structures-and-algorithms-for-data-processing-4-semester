@@ -31,15 +31,15 @@ namespace z8_4
 			if (isCopy) delete[] data;
 		}
 
-		// Копирование данных из оперативной памяти в новое место.
+		// Копирование данных из оперативной памяти в новое место. Создаётся экземпляр new!
 		// const T * Data: Передайте указатель, в котором хранятся данные.
 		// size_t Length: количество элементов.
 		// Возвращает: новый массив.
-		static Array<T> CreateCopyArray(const T * Data, size_t Length)
+		static Array<T> * CreateCopyArray(const T * Data, size_t Length)
 		{
 			T * a = new T[Length];
 			memcpy(a, Data, Length * sizeof(T));
-			return z8_4::Array<T>::Array(a, Length, true);
+			return new z8_4::Array<T>::Array(a, Length, true);
 		}
 
 

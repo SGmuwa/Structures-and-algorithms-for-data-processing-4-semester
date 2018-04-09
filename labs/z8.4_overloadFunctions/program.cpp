@@ -116,6 +116,11 @@ unsigned z8_4::program::Test_SortMatrixInt()
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование сортировки.\n");
 	Matrix<int> * mat = new Matrix<int>(3, 3);
+	if (mat == NULL)
+	{
+		test_UserInterface::log(false, "mat is NULL!!! Test end.");
+		return ++errors;
+	}
 	test_UserInterface::log(true, "Экземпляр матрицы создан.");
 	int i = 2;
 	for (size_t r = 0; r < (*mat).getRows(); r++)
@@ -141,7 +146,7 @@ unsigned z8_4::program::Test_SortMatrixInt()
 		}
 	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
 	{
-		if (((*mat)(0, c) <= (*mat)(0, c + 1)) == false)
+		if (((*mat)(0, c) > (*mat)(0, c + 1)) == false)
 		{
 			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
 			errors++;
@@ -169,8 +174,8 @@ unsigned z8_4::program::Test_SortMatrixString()
 	for (size_t r = 0; r < (*mat).getRows(); r++)
 		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
-			(*mat)(r, c) = Array<char>::CreateCopyArray(a[i], sizeof(a[i]));
-			strstr((char *)(*mat)(r, c), a[i++]);
+			(*mat)(r, c) = Array<char>::CreateCopyArray(a[i], 3);
+			//strstr((char *)(*mat)(r, c), a[i++]);
 		}
 
 	SortMatrix::Sort_by_z8_4(mat);
