@@ -39,7 +39,7 @@ namespace z8_4
 		{
 			T * a = new T[Length];
 			memcpy(a, Data, Length * sizeof(T));
-			return z8_4::Array<T>::Array<T>(a, Length, true);
+			return z8_4::Array<T>::Array(a, Length, true);
 		}
 
 

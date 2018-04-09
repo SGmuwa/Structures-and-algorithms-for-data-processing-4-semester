@@ -1,14 +1,4 @@
 ﻿  MatrixIO.cpp
-  SortMatrix.cpp
-  matrix.cpp
   program.cpp
-d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\array.h(42): warning C4812: устаревший стиль объявления: используйте "z8_4::Array<char>::Array" как альтернативу
-  d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\array.h(39): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
-  d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(151): note: выполняется компиляция ссылки на экземпляр шаблон функции "z8_4::Array<char> z8_4::Array<char>::CreateCopyArray(const T *,::size_t)"
-          with
-          [
-              T=char
-          ]
-  d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\program.cpp(151): note: выполняется компиляция ссылки на экземпляр шаблон класс "z8_4::Array<char>"
   Создание кода...
   z8.4_overloadFunctions.vcxproj -> D:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z8.4_overloadFunctions.exe

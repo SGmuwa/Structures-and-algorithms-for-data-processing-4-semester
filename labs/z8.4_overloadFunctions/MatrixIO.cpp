@@ -19,32 +19,32 @@
 
 using namespace z8_4;
 
-bool MatrixIO::toString(const Matrix<const Array<char>> & input, char * to, size_t limit)
+bool MatrixIO::toString(const Matrix<const Array<char>> * input, char * to, size_t limit)
 {
 #ifdef _MSC_VER
 	sprintf_s(to, limit, "{ ");
 #else
 	sprintf(to, "{ ");
 #endif
-	for (size_t r = 0; r < input.getRows(); r++)
+	for (size_t r = 0; r < input[0].getRows(); r++)
 	{
 #ifdef _MSC_VER
 		sprintf_s(to, limit, "%s{ ", to);
 #else
 		sprintf(to, "%s{ ", to);
 #endif
-		for (size_t c = 0; c < input.getCols(); c++)
+		for (size_t c = 0; c < input[0].getCols(); c++)
 		{
-			if (c + 1 < input.getCols())
+			if (c + 1 < input[0].getCols())
 #ifdef _MSC_VER
-				sprintf_s(to, limit, "%s%s, ", to, (char*)input(r, c));
-			else sprintf_s(to, limit, "%s%s ", to, (char*)input(r, c));
+				sprintf_s(to, limit, "%s%s, ", to, (char*)input[0](r, c));
+			else sprintf_s(to, limit, "%s%s ", to, (char*)input[0](r, c));
 #else
-				sprintf(to, "%s%s, ", to, (char*)input(r, c));
-			else sprintf(to, "%s%s ", to, (char*)input(r, c));
+				sprintf(to, "%s%s, ", to, (char*)input[0](r, c));
+			else sprintf(to, "%s%s ", to, (char*)input[0](r, c));
 #endif
 		}
-		if (r + 1 < input.getRows())
+		if (r + 1 < input[0].getRows())
 #ifdef _MSC_VER
 			sprintf_s(to, limit, "%s}, ", to);
 #else
@@ -72,7 +72,7 @@ bool MatrixIO::toString(const Matrix<const Array<char>> & input, char * to, size
 #endif
 }
 
-bool MatrixIO::toString(const Matrix<const int> & input, char * to, size_t limit)
+bool MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit)
 {
 
 #ifdef _MSC_VER
@@ -80,29 +80,29 @@ bool MatrixIO::toString(const Matrix<const int> & input, char * to, size_t limit
 #else
 	sprintf(to, "{ ");
 #endif
-	for (size_t r = 0; r < input.getRows(); r++)
+	for (size_t r = 0; r < input[0].getRows(); r++)
 	{
 #ifdef _MSC_VER
-		sprintf_s(to, limit, "%s{ ", to);
+		sprintf_s(to, limit, "%s{", to);
 #else
-		sprintf(to, "%s{ ", to);
+		sprintf(to, "%s{", to);
 #endif
-		for (size_t c = 0; c < input.getCols(); c++)
+		for (size_t c = 0; c < input[0].getCols(); c++)
 		{
-			if (c + 1 < input.getCols())
+			if (c + 1 < input[0].getCols())
 #ifdef _MSC_VER
-				sprintf_s(to, limit, "%s%d, ", to, input(r, c));
+				sprintf_s(to, limit, "%s%d, ", to, input[0](r, c));
 #else
 				sprintf(to, "%s%d, ", to, input(r, c));
 #endif
 			else
 #ifdef _MSC_VER
-				sprintf_s(to, limit, "%s%d ", to, input(r, c));
+				sprintf_s(to, limit, "%s%d", to, input[0](r, c));
 #else
-				sprintf(to, "%s%d ", to, input(r, c));
+				sprintf(to, "%s%d", to, input(r, c));
 #endif
 		}
-		if (r + 1 < input.getRows())
+		if (r + 1 < input[0].getRows())
 #ifdef _MSC_VER
 			sprintf_s(to, limit, "%s}, ", to);
 #else
@@ -124,20 +124,20 @@ bool MatrixIO::toString(const Matrix<const int> & input, char * to, size_t limit
 		< (long)limit;
 }
 
-size_t MatrixIO::getCountForToString(const Matrix<const Array<char>> & input)
+size_t MatrixIO::getCountForToString(const Matrix<const Array<char>> * input)
 {
 	size_t output = 0u;
 	output += 3;
-	for (size_t r = 0; r < input.getRows(); r++)
+	for (size_t r = 0; r < input[0].getRows(); r++)
 	{
 		output += 2;
-		for (size_t c = 0; c < input.getCols(); c++)
+		for (size_t c = 0; c < input[0].getCols(); c++)
 		{
-			if (c + 1 < input.getCols())
-				output += strlen((const char*)input(r, c)) + 2;
-			else output += strlen((const char*)input(r, c)) + 1;
+			if (c + 1 < input[0].getCols())
+				output += strlen((const char*)input[0](r, c)) + 2;
+			else output += strlen((const char*)input[0](r, c)) + 1;
 		}
-		if (r + 1 < input.getRows())
+		if (r + 1 < input[0].getRows())
 			output += 3;
 		else
 			output += 2;
@@ -145,31 +145,31 @@ size_t MatrixIO::getCountForToString(const Matrix<const Array<char>> & input)
 	return ++output;
 }
 
-size_t MatrixIO::getCountForToString(const Matrix<const int> & input)
+size_t MatrixIO::getCountForToString(const Matrix<const int> * input)
 {
 	size_t output = 0;
 	char buffer[64] = { 0 };
 	output += 3;
-	for (size_t r = 0; r < input.getRows(); r++)
+	for (size_t r = 0; r < input[0].getRows(); r++)
 	{
-		output += 2;
-		for (size_t c = 0; c < input.getCols(); c++)
+		output += 1;
+		for (size_t c = 0; c < input[0].getCols(); c++)
 		{
-			if (c + 1 < input.getCols())
+			if (c + 1 < input[0].getCols())
 #ifdef _MSC_VER
-				sprintf_s(buffer, sizeof(buffer) / sizeof(char), "%d, ", input(r, c));
+				sprintf_s(buffer, sizeof(buffer) / sizeof(char), "%d, ", input[0](r, c));
 #else
-				sprintf(buffer, "%d, ", input(r, c));
+				sprintf(buffer, "%d, ", input[0](r, c));
 #endif
 			else
 #ifdef _MSC_VER
-				sprintf_s(buffer, sizeof(buffer) / sizeof(char), "%d ", input(r, c));
+				sprintf_s(buffer, sizeof(buffer) / sizeof(char), "%d", input[0](r, c));
 #else
-				sprintf(buffer, "%d ", input(r, c));
+				sprintf(buffer, "%d ", input[0](r, c));
 #endif
 			output += strlen(buffer);
 		}
-		if (r + 1 < input.getRows())
+		if (r + 1 < input[0].getRows())
 			output += 3;
 		else
 			output += 2;
@@ -228,11 +228,11 @@ Matrix<int> * MatrixIO::parseInt(char * from)
 				sscanf_s(from, "%d", &(*output)(r, c));
 #endif
 				c++;
-				if (c < output->getCols())
+				if (c >= output->getCols())
 				{
 					c = 0;
 					r++;
-					if (r < output->getRows())
+					if (r >= output->getRows())
 					{
 						break;
 					}
@@ -259,7 +259,7 @@ Matrix<int> * MatrixIO::parseInt(FILE * from, FILE * questions)
 
 
 
-size_t MatrixIO::print(const Matrix<const Array<char>> & input, FILE * toWriter)
+size_t MatrixIO::print(const Matrix<const Array<char>> * input, FILE * toWriter)
 {
 	char * buffer = new char[getCountForToString(input)];
 	toString(input, buffer, sizeof(buffer));
@@ -267,7 +267,7 @@ size_t MatrixIO::print(const Matrix<const Array<char>> & input, FILE * toWriter)
 	delete[] buffer; return output;
 }
 
-size_t MatrixIO::print(const Matrix<const int> & input, FILE * toWriter)
+size_t MatrixIO::print(const Matrix<const int> * input, FILE * toWriter)
 {
 	char * buffer = new char[getCountForToString(input)];
 	toString(input, buffer, sizeof(buffer));

@@ -44,14 +44,22 @@ unsigned z8_4::program::Test_ParseToStringInt()
 {
 	test_UserInterface::log(true, "\nPARSE-toString START\n");
 	unsigned errors = 0;
-	Matrix<int> mat = MatrixIO::parseInt("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
+	Matrix<int> * mat = MatrixIO::parseInt("{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }");
+	if (mat == NULL)
+	{
+		test_UserInterface::log(false, "mat is NULL!!! Test end.");
+		return ++errors;
+	}
 	int i = 1;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < mat->getRows(); r++)
+		for (size_t c = 0; c < mat->getCols(); c++)
 		{
-			if (mat(r, c) != i)
+			if (mat[0](r, c) != i)
 			{
 				test_UserInterface::log(false, "Parse: error. mat(r, c) != i. i = ", i);
+				test_UserInterface::log(false, "r = ", r);
+				test_UserInterface::log(false, "c = ", c);
+				test_UserInterface::log(false, "(*mat)(r, c) = ", (*mat)(r, c));
 				errors++;
 			}
 			else test_UserInterface::log(true, "Parse: mat(r, c) == i. i = ", i);
@@ -59,7 +67,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		}
 	test_UserInterface::log(true, "Parse end.");
 	char MemoryToString[64]; // Участок памяти хранения вывода toString.
-	z8_4::MatrixIO::toString(mat, MemoryToString, sizeof(MemoryToString));
+	z8_4::MatrixIO::toString((const Matrix<const int>*)mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{
@@ -67,14 +75,20 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		errors++;
 	}
 	else test_UserInterface::log(true, "String does coincide with the expected.");
-
+	delete mat;
 	mat = MatrixIO::parseInt(MemoryToString);
+	if (mat == NULL)
+	{
+		test_UserInterface::log(false, "mat is NULL!!! Test end.");
+		return ++errors;
+	}
+
 
 	i = 1;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < mat[0].getRows(); r++)
+		for (size_t c = 0; c < mat[0].getCols(); c++)
 		{
-			if (mat(r, c) != i)
+			if (mat[0](r, c) != i)
 			{
 				test_UserInterface::log(false, "Parse: error. mat(r, c) != i. i = ", i);
 				errors++;
@@ -84,7 +98,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		}
 	test_UserInterface::log(true, "Parse end.");
 
-	MatrixIO::toString(mat, MemoryToString, sizeof(MemoryToString));
+	MatrixIO::toString((const Matrix<const int>*)mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{
@@ -92,6 +106,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		errors++;
 	}
 	else test_UserInterface::log(true, "String does coincide with the expected.");
+	delete mat;
 	test_UserInterface::log(true, "PARSE-toString END");
 	return errors;
 }
@@ -100,23 +115,23 @@ unsigned z8_4::program::Test_SortMatrixInt()
 {
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование сортировки.\n");
-	Matrix<int> mat = Matrix<int>(3, 3);
+	Matrix<int> * mat = new Matrix<int>(3, 3);
 	test_UserInterface::log(true, "Экземпляр матрицы создан.");
 	int i = 2;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < (*mat).getRows(); r++)
+		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
-			mat(r, c) = i++;
+			(*mat)(r, c) = i++;
 		}
 
 	SortMatrix::Sort_by_z8_4(mat);
 
 	i = 2;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < (*mat).getRows(); r++)
+		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
 			if (r != 0)
-				if (mat(r, c) != i)
+				if ((*mat)(r, c) != i)
 				{
 					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
 					errors++;
@@ -124,15 +139,16 @@ unsigned z8_4::program::Test_SortMatrixInt()
 				else test_UserInterface::log(true, "Элемент, который не должен был измениться, не изменился. i = ", i);
 			i++;
 		}
-	for (size_t c = 0; c < mat.getCols() - 1; c++)
+	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
 	{
-		if ((mat(0, c) <= mat(0, c + 1)) == false)
+		if (((*mat)(0, c) <= (*mat)(0, c + 1)) == false)
 		{
 			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
 			errors++;
 		}
 		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
 	}
+	delete mat;
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
 }
@@ -141,25 +157,30 @@ unsigned z8_4::program::Test_SortMatrixString()
 {
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование сортировки (строки).\n");
-	Matrix<Array<char>> mat = Matrix<Array<char>>(3, 3);
+	Matrix<Array<char>> * mat = new Matrix<Array<char>>(3, 3);
+	if (mat == NULL)
+	{
+		test_UserInterface::log(false, "mat is NULL!!! Test end.");
+		return ++errors;
+	}
 	const char * a[] = { "aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii" };
 	test_UserInterface::log(true, "Экземпляр матрицы создан.");
 	int i = 0;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < (*mat).getRows(); r++)
+		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
-			mat(r, c) = Array<char>::CreateCopyArray(a[i], sizeof(a[i]));
-			strstr((char *)mat(r, c), a[i++]);
+			(*mat)(r, c) = Array<char>::CreateCopyArray(a[i], sizeof(a[i]));
+			strstr((char *)(*mat)(r, c), a[i++]);
 		}
 
 	SortMatrix::Sort_by_z8_4(mat);
 
 	i = 0;
-	for (size_t r = 0; r < mat.getRows(); r++)
-		for (size_t c = 0; c < mat.getCols(); c++)
+	for (size_t r = 0; r < (*mat).getRows(); r++)
+		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
 			if (r != 0)
-				if (strcmp(mat(r, c), a[i]) != 0)
+				if (strcmp((*mat)(r, c), a[i]) != 0)
 				{
 					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
 					errors++;
@@ -167,15 +188,16 @@ unsigned z8_4::program::Test_SortMatrixString()
 				else test_UserInterface::log(true, "Элемент, который не должен был измениться, не изменился. i = ", i);
 			i++;
 		}
-	for (size_t c = 0; c < mat.getCols() - 1; c++)
+	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
 	{
-		if ((strcmp(mat(0, c), mat(0, c + 1)) <= 0) == false) // Если не отсортировано
+		if ((strcmp((*mat)(0, c), (*mat)(0, c + 1)) <= 0) == false) // Если не отсортировано
 		{
 			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
 			errors++;
 		}
 		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
 	}
+	delete mat;
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
 }
