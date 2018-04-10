@@ -24,7 +24,7 @@ namespace z8_4
 		// —ортировка по следующему правилу:
 		// ”пор¤дочить столбцы по убыванию первых элементов столбцов
 		// Matrix<Array<char>> input: входна¤ матрица, которую следует отсортировать.
-		static void Sort_by_z8_4(Matrix<Array<char>> * input);
+		static void Sort_by_z8_4(Matrix<Array<char>*> * input);
 	private:
 		template<typename T>
 		static void Swap(T & a, T & b);

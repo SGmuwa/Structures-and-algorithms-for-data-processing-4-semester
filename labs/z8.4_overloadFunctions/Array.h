@@ -14,7 +14,7 @@ namespace z8_4
 		{
 			data = nullptr;
 			length = 0u;
-			isCopy = false;
+			isNeedFree = false;
 		}
 		// Инцилизация массива
 		// T * Data: Передайте указатель, в котором хранятся данные.
@@ -24,11 +24,17 @@ namespace z8_4
 		{
 			data = Data;
 			Array<T>::length = length;
-			isCopy = needFree;
+			isNeedFree = needFree;
+		}
+		Array(const Array<T> & input)
+		{
+			data = input.data;
+			this->length = input.length;
+			isNeedFree = false;
 		}
 		~Array()
 		{
-			if (isCopy) delete[] data;
+			if (isNeedFree) delete[] data;
 		}
 
 		// Копирование данных из оперативной памяти в новое место. Создаётся экземпляр new!
@@ -39,15 +45,16 @@ namespace z8_4
 		{
 			T * a = new T[Length];
 			memcpy(a, Data, Length * sizeof(T));
-			return new z8_4::Array<T>::Array(a, Length, true);
+			//Array<T> * buffer = ;
+			return new Array(a, Length, true);
 		}
 
 
 
 		// Возвращает количество элементов в массиве.
-		size_t getLength();
+		size_t getLength() const;
 
-		T operator[](size_t index);
+		inline T operator[](size_t index);
 
 		template<typename T>
 		inline operator T*() const
@@ -61,9 +68,9 @@ namespace z8_4
 		}
 
 	private:
-		size_t length;
 		T * data;
-		bool isCopy; //Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
+		size_t length;
+		bool isNeedFree; //Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
 	};
 
 }

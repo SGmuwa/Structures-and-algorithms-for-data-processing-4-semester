@@ -162,7 +162,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 {
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование сортировки (строки).\n");
-	Matrix<Array<char>> * mat = new Matrix<Array<char>>(3, 3);
+	Matrix<Array<char>*> * mat = new Matrix<Array<char>*>(3, 3);
 	if (mat == NULL)
 	{
 		test_UserInterface::log(false, "mat is NULL!!! Test end.");
@@ -174,7 +174,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 	for (size_t r = 0; r < (*mat).getRows(); r++)
 		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
-			(*mat)(r, c) = Array<char>::CreateCopyArray(a[i], 3);
+			(*mat)(r, c) = Array<char>::CreateCopyArray(a[i++], 3);
 			//strstr((char *)(*mat)(r, c), a[i++]);
 		}
 
@@ -185,7 +185,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
 			if (r != 0)
-				if (strcmp((*mat)(r, c), a[i]) != 0)
+				if (strcmp(*(*mat)(r, c), a[i]) != 0)
 				{
 					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
 					errors++;
@@ -195,7 +195,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 		}
 	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
 	{
-		if ((strcmp((*mat)(0, c), (*mat)(0, c + 1)) <= 0) == false) // Если не отсортировано
+		if ((strcmp(*(*mat)(0, c), *(*mat)(0, c + 1)) <= 0) == false) // Если не отсортировано
 		{
 			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
 			errors++;

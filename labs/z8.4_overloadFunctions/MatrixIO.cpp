@@ -19,7 +19,7 @@
 
 using namespace z8_4;
 
-bool MatrixIO::toString(const Matrix<const Array<char>> * input, char * to, size_t limit)
+size_t MatrixIO::toString(const Matrix<const Array<char>*> * input, char * to, size_t limit)
 {
 #ifdef _MSC_VER
 	sprintf_s(to, limit, "{ ");
@@ -37,11 +37,11 @@ bool MatrixIO::toString(const Matrix<const Array<char>> * input, char * to, size
 		{
 			if (c + 1 < input[0].getCols())
 #ifdef _MSC_VER
-				sprintf_s(to, limit, "%s%s, ", to, (char*)input[0](r, c));
-			else sprintf_s(to, limit, "%s%s ", to, (char*)input[0](r, c));
+				sprintf_s(to, limit, "%s%s, ", to, (char*)input[0](r, c)[0]);
+			else sprintf_s(to, limit, "%s%s ", to, (char*)input[0](r, c)[0]);
 #else
-				sprintf(to, "%s%s, ", to, (char*)input[0](r, c));
-			else sprintf(to, "%s%s ", to, (char*)input[0](r, c));
+				sprintf(to, "%s%s, ", to, (char*)input[0](r, c)[0]);
+			else sprintf(to, "%s%s ", to, (char*)input[0](r, c)[0]);
 #endif
 		}
 		if (r + 1 < input[0].getRows())
@@ -57,22 +57,16 @@ bool MatrixIO::toString(const Matrix<const Array<char>> * input, char * to, size
 			sprintf(to, "%s} ", to);
 #endif
 	}
-#if _DEBUG == 1
-	int debug = sprintf_s(to, limit, "%s}", to);
-	printf("sprintf_s: %d", debug);
-	return ((long)debug < (long)limit);
-#else
-	return ((long)
+	return (size_t)
 #ifdef _MSC_VER
 		sprintf_s(to, limit, "%s}", to)
 #else
 		sprintf(to, "%s}", to)
 #endif
-		< (long)limit);
-#endif
+		+ 1u;
 }
 
-bool MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit)
+size_t MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit)
 {
 
 #ifdef _MSC_VER
@@ -115,16 +109,16 @@ bool MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit
 			sprintf(to, "%s} ", to);
 #endif
 	}
-	return (long)
+	return (size_t)
 #ifdef _MSC_VER
 		sprintf_s(to, limit, "%s}", to)
 #else
 		sprintf(to, "%s}", to)
 #endif
-		< (long)limit;
+		+ 1u;
 }
 
-size_t MatrixIO::getCountForToString(const Matrix<const Array<char>> * input)
+size_t MatrixIO::getCountForToString(const Matrix<const Array<char>*> * input)
 {
 	size_t output = 0u;
 	output += 3;
@@ -259,7 +253,7 @@ Matrix<int> * MatrixIO::parseInt(FILE * from, FILE * questions)
 
 
 
-size_t MatrixIO::print(const Matrix<const Array<char>> * input, FILE * toWriter)
+size_t MatrixIO::print(const Matrix<const Array<char>*> * input, FILE * toWriter)
 {
 	size_t sizeBuffer = getCountForToString(input);
 	char * buffer = new char[sizeBuffer];
