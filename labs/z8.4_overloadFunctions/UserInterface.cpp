@@ -136,21 +136,23 @@ size_t UserInterface::GetStr(const char * message, char * To, size_t countTo, FI
 	return i - To + 1; // +1 так как нужно количество элементов, а не расстояние между первым и последним.
 }
 
-unsigned UserInterface::GetInt(const char * message)
+signed UserInterface::GetInt(const char * message, FILE * fpIN, FILE * fpOUT)
 {
+	if (fpIN == NULL) return 0;
 	int buffer = 0;
 	while (true)
 	{
+		if (fpOUT != NULL)
 #ifdef _MSC_VER
-		printf_s("%s", message);
+			fprintf_s(fpOUT, "%s", message);
 #else
-		printf("%s", message);
+			fprintf(fpOUT, "%s", message);
 #endif // _MSC_VER
 		if (
 #ifdef _MSC_VER
-			scanf_s("%d", &buffer)
+			fscanf_s(fpIN, "%d", &buffer)
 #else
-			scanf("%d", &buffer)
+			fscanf(fpIN, "%d", &buffer)
 #endif // _MSC_VER
 			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
 			)
@@ -158,15 +160,15 @@ unsigned UserInterface::GetInt(const char * message)
 			break;
 		}
 #ifdef _MSC_VER
-		scanf_s("%*s");
+		fscanf_s(fpIN, "%*s");
 #else
-		scanf("%*s");
+		fscanf(fpIN, "%*s");
 #endif // _MSC_VER
 	}
 #ifdef _MSC_VER
-	scanf_s("%*c");
+	fscanf_s(fpIN, "%*c");
 #else
-	scanf("%*c");
+	fscanf(fpIN, "%*c");
 #endif // _MSC_VER
 	return buffer;
 }

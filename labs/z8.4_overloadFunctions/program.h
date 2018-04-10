@@ -39,15 +39,11 @@ namespace z8_4
 		int main(int argc, char * argv[]);
 
 		unsigned StartTest();
-		template <typename T>
-		void GetStarterSizeMatrix(Matrix<T> * in);
 
 	private:
 		unsigned Test_ParseToStringInt();
 		unsigned Test_SortMatrixInt();
 		unsigned Test_SortMatrixString();
-		void GetStarterMatrix(Matrix<int> & in);
-		void GetStarterMatrix(Matrix<Array<char>> & in);
 
 	};
 }

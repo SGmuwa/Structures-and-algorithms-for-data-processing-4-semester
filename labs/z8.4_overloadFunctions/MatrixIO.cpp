@@ -128,8 +128,8 @@ size_t MatrixIO::getCountForToString(const Matrix<const Array<char>*> * input)
 		for (size_t c = 0; c < input[0].getCols(); c++)
 		{
 			if (c + 1 < input[0].getCols())
-				output += strlen((const char*)input[0](r, c)) + 2;
-			else output += strlen((const char*)input[0](r, c)) + 1;
+				output += strlen((const char*)input[0](r, c)[0]) + 2;
+			else output += strlen((const char*)input[0](r, c)[0]) + 1;
 		}
 		if (r + 1 < input[0].getRows())
 			output += 3;

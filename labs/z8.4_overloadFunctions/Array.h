@@ -64,7 +64,7 @@ namespace z8_4
 
 		inline const T * GetConstData() const
 		{
-			return const data;
+			return (const T*) data;
 		}
 
 	private:

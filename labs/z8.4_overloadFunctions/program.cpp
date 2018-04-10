@@ -31,7 +31,16 @@ unsigned z8_4::program::StartTest()
 {
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование началось.\n");
-	
+
+	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+		Test_ParseToStringInt();
+	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+		Test_SortMatrixInt();
+	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+		Test_SortMatrixString();
+
+	test_UserInterface::log(true, "\n\n\nИтоговое тестирование:\n", errors);
+
 	errors += Test_ParseToStringInt();
 	errors += Test_SortMatrixInt();
 	errors += Test_SortMatrixString();
@@ -185,7 +194,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 		for (size_t c = 0; c < (*mat).getCols(); c++)
 		{
 			if (r != 0)
-				if (strcmp(*(*mat)(r, c), a[i]) != 0)
+				if (strcmp((char*)*(*mat)(r, c), a[i]) != 0)
 				{
 					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
 					errors++;
@@ -195,58 +204,18 @@ unsigned z8_4::program::Test_SortMatrixString()
 		}
 	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
 	{
-		if ((strcmp(*(*mat)(0, c), *(*mat)(0, c + 1)) <= 0) == false) // Если не отсортировано
+		if ((strcmp((*mat)(0, c)->GetConstData(), (*mat)(0, c + 1)->GetConstData()) > 0) == false) // Если не отсортировано
 		{
 			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
 			errors++;
 		}
 		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
 	}
+	MatrixIO::FreeMatrixContent(mat);
 	delete mat;
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
 }
 
-template <typename T>
-void z8_4::program::GetStarterSizeMatrix(Matrix<T> * in)
-{
-	*in = Matrix<T>(
-		UserInterface::GetUnsignedInt("Введите количество строк в матрице: ", 1, ~0u),
-		UserInterface::GetUnsignedInt("Введите количество стобцов в матрице: ", 1, ~0u)
-		);
-}
 
-void z8_4::program::GetStarterMatrix(Matrix<int> & in)
-{
-	char buffer[1024];
-	GetStarterSizeMatrix(&in);
-	for(size_t i = 0; i < in.getRows(); i++)
-		for (size_t j = 0; j < in.getCols(); j++)
-		{
-#ifndef _MSC_VER
-			sprintf(buffer, "Введите целое число для [%lu строки, %lu столбца]", (unsigned long)i, (unsigned long)j);
-#else			
-			sprintf_s(buffer, sizeof(buffer), "Введите целое число для [%lu строки, %lu столбца]", (unsigned long)i, (unsigned long)j);
-#endif
-			in(i, j) = UserInterface::GetInt(buffer);
-		}
-}
-
-void z8_4::program::GetStarterMatrix(Matrix<Array<char>> & in)
-{
-	char bufferToPrint[128];
-	char toSave[1024 * 16];
-	GetStarterSizeMatrix(&in);
-	for (size_t i = 0; i < in.getRows(); i++)
-		for (size_t j = 0; j < in.getCols(); j++)
-		{
-			printf(bufferToPrint, "Введите текст для [%lu строки, %lu столбца]\n", (unsigned long)i, (unsigned long)j);
-			in(i, j) =
-			Array<char>( // Тот массив, который следует поместить в матрицу.
-				bufferToPrint, // Передаём указатель, показывая, сколько 
-				UserInterface::GetStr(bufferToPrint, toSave, sizeof(toSave), stdin, stdout), // Помещаем в buffer информацию, узнавая количество символов
-				true // Да, стереть информацию потом необходимо.
-				); 
-		}
-}
 
