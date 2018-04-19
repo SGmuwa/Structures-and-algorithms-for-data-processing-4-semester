@@ -8,11 +8,11 @@
 
 
 // Получает следующий x.
-double z7_16_iRRM_p_getNextX(double oldX, float h);
+inline double z7_16_iRRM_p_getNextX(double oldX, double h);
 // Высчитывает сигму.
-float z7_16_iRRM_p_sum(unsigned N, float f(float x), float h, float a);
+double z7_16_iRRM_p_sum(unsigned long N, double f(double x), double h, float a);
 // Получает коэффициент перед сигма.
-float z7_16_iRRM_p_getH(float a, float b, unsigned N);
+double z7_16_iRRM_p_getH(float a, float b, unsigned long N);
 
 // Высчитывает интеграл функции с определённой точностью.
 // float f(float x): подинтегральная функция.
@@ -20,7 +20,7 @@ float z7_16_iRRM_p_getH(float a, float b, unsigned N);
 // float b: конечная точка интегрирования.
 // int N: характеристика точности. Чем больше будет это число, тем больше будет итераций, и тем более точным будет результат.
 // Возвращает значение интеграла подинтегральной функции в пределах от a до b с некоторой погрешностью.
-float z7_16_iRRM_CalculateIntegralByN(float f(float), float a, float b, unsigned N);
+double z7_16_iRRM_CalculateIntegralByN(double f(double), float a, float b, unsigned long N);
 
 // Высчитывает интеграл функции с определённой точностью.
 // float f(float x): подинтегральная функция.
@@ -28,41 +28,41 @@ float z7_16_iRRM_CalculateIntegralByN(float f(float), float a, float b, unsigned
 // float b: конечная точка интегрирования.
 // int hCurrent: характеристика точности. Чем меньше будет это число, тем больше будет итераций, и тем более точным будет результат.
 // Возвращает значение интеграла подинтегральной функции в пределах от a до b с некоторой погрешностью.
-float z7_16_iRRM_CalculateIntegralByH(float f(float), float a, float b, float hCurrent);
+double z7_16_iRRM_CalculateIntegralByH(double f(double), float a, float b, float hCurrent);
 
 // ----------------------------------------------------
 
-double z7_16_iRRM_p_getNextX(double oldX, float h)
+inline double z7_16_iRRM_p_getNextX(double oldX, double h)
 { return oldX + h; }
 
-float z7_16_iRRM_p_sum(unsigned N, float f(float x), float h, float a)
+double z7_16_iRRM_p_sum(unsigned long N, double f(double x), double h, float a)
 {
 	double out = 0.0f;
 	double OldX = (double)a;
-	for (unsigned i = 1; i != N + 1; i++)
+	for (unsigned long i = 1; i != N + 1; i++)
 	{
-		out += (double)f((float)OldX);
+		out += f(OldX);
 		OldX = z7_16_iRRM_p_getNextX(OldX, h);
 	}
-	return (float)out;
+	return out;
 }
 
-float z7_16_iRRM_p_getH(float a, float b, unsigned N)
-{ return (b - a) / (float)N; }
+double z7_16_iRRM_p_getH(float a, float b, unsigned long N)
+{ return ((double)b - (double)a) / N; }
 
-float z7_16_iRRM_CalculateIntegralByN(float f(float), float a, float b, unsigned N)
+double z7_16_iRRM_CalculateIntegralByN(double f(double), float a, float b, unsigned long N)
 {
-	float h = z7_16_iRRM_p_getH(a, b, N);
+	double h = z7_16_iRRM_p_getH(a, b, N);
 	return h * z7_16_iRRM_p_sum(N, f, h, a);
 }
 
-float z7_16_iRRM_CalculateIntegralByH(float f(float), float a, float b, float hCurrent)
+double z7_16_iRRM_CalculateIntegralByH(double f(double), float a, float b, float hCurrent)
 {
 	if (isfinite(hCurrent) && hCurrent > 0.0f)
 	{
-		unsigned N = 1;
-		float buffer1 = 0.0f;
-		float buffer2 = z7_16_iRRM_CalculateIntegralByN(f, a, b, N);
+		unsigned long N = 1;
+		double buffer1 = 0.0f;
+		double buffer2 = z7_16_iRRM_CalculateIntegralByN(f, a, b, N);
 		do {
 			buffer1 = buffer2;
 			N *= 2;

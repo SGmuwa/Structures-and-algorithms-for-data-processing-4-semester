@@ -4,34 +4,24 @@
 #include "z7.16 UserInterface.h"
 #include <math.h>
 
-float f_xePsx(float x)
+double f_xePsx(double x)
 {
-	return (float)(x * exp((double)-x));
+	return (x * exp(-x));
 }
 
 void BeginIntegral()
 {
-	float b;
 	printf("xe^-x integral from a = 0, b = select.\n");
-	switch (z7_16_UserInterface_GetChek("0. b = 0.5.\n1. b = 1.0\n2. b = 1.5.\n3. b = 2.0.\n", 3))
-	{
-	case 0:
-		b = 0.5f;
-		break;
-	case 1:
-		b = 1.0f;
-		break;
-	case 2:
-		b = 1.5f;
-		break;
-	default:
-		b = 2.0f;
-	}
 	float hCurrent;
 	do
 		hCurrent = z7_16_UserInterface_GetFloat("Accuracy of calculations: ");
 	while (hCurrent <= 0 || isnan(hCurrent));
-	printf("result: %f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, b, hCurrent));
+	printf("b = 0.5; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 0.5f, hCurrent));
+	printf("b = 1.0; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 1.0f, hCurrent));
+	printf("b = 1.5; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 1.5f, hCurrent));
+	printf("b = 2.0; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 2.0f, hCurrent));
+
+	printf("b: your; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, z7_16_UserInterface_GetFloat("b = "), hCurrent));
 }
 
 int main(int argc, char * argv[])
