@@ -50,7 +50,13 @@ public:
 	// unsigned min: минимальное допустимое значение.
 	// unsigned max: макисмальное допустимое значение.
 	// Возвращает: Целое беззнаковое число, которое передал пользователь или поток.
-	static unsigned GetUnsignedInt(char * message, unsigned min, unsigned max);
+	static unsigned GetUnsignedInt(const char * message, unsigned min, unsigned max);
+
+	// Приостанавливает поток.
+	// const char * message = NULL: Указатель на первый символ сообщения, который надо вывести перед паузой. В случае NULL, сообщение не будет выведено.
+	// FILE * fpOUT = stdout: указатель на структуру файла, куда отправляется сообщение перед паузой. В случае NULL сообщение не будет отправлено. По-умолчанию stdout.
+	// FILE * fpIN = stdin: указатель на структуру файла, откуда идёт ожидание. По-умолчанию stdin. В случае, если указать NULL, то поток будет ожидать, пока процессор отсчитает int от начала до конца.
+	static void pause(const char * message = NULL, FILE * fpOUT = stdout, FILE * fpIN = stdin);
 };
 
 #endif //!_INC_USERINTERFACE_

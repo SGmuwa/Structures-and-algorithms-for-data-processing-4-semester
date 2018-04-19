@@ -11,20 +11,27 @@
 #include "matrix.h"
 #endif
 
+#ifndef _INC_STDIO
+#include <stdio.h>
+#endif
+
+
 namespace z8_4
 {
 	class SortMatrix
 	{
 	public:
-		// —ортировка по следующему правилу:
-		// ”пор¤дочить столбцы по убыванию первых элементов столбцов
+		// Сортировка по следующему правилу:
+		// Упорядочить столбцы по убыванию первых элементов столбцов
 		// Matrix<int> input: входна¤ матрица, которую следует отсортировать.
-		static void Sort_by_z8_4(Matrix<int> * input);
+		// FILE * fpOUT = NULL: Куда отправить отчёт о каждом шаге сортировки? Укажите NULL, если не надо никуда отправлять.
+		static void Sort_by_z8_4(Matrix<int> * input, FILE * fpOUT = NULL);
 
-		// —ортировка по следующему правилу:
-		// ”пор¤дочить столбцы по убыванию первых элементов столбцов
+		// Сортировка по следующему правилу:
+		// Упорядочить столбцы по убыванию первых элементов столбцов
 		// Matrix<Array<char>> input: входна¤ матрица, которую следует отсортировать.
-		static void Sort_by_z8_4(Matrix<Array<char>*> * input);
+		// FILE * fpOUT = NULL: Куда отправить отчёт о каждом шаге сортировки? Укажите NULL, если не надо никуда отправлять.
+		static void Sort_by_z8_4(Matrix<const Array<char>*> * input, FILE * fpOUT = NULL);
 	private:
 		template<typename T>
 		static void Swap(T & a, T & b);

@@ -173,7 +173,7 @@ signed UserInterface::GetInt(const char * message, FILE * fpIN, FILE * fpOUT)
 	return buffer;
 }
 
-unsigned UserInterface::GetUnsignedInt(char * message, unsigned min, unsigned max)
+unsigned UserInterface::GetUnsignedInt(const char * message, unsigned min, unsigned max)
 {
 	if (min > max) return min;
 	unsigned buffer;
@@ -182,4 +182,24 @@ unsigned UserInterface::GetUnsignedInt(char * message, unsigned min, unsigned ma
 		buffer = GetUnsignedInt(message);
 	} while (buffer < min || buffer > max);
 	return buffer;
+}
+
+void UserInterface::pause(const char * message, FILE * fpOUT, FILE * fpIN)
+{
+	sizeof(int);
+#ifdef _MSC_VER
+	if(fpOUT != NULL && message != NULL)
+		fprintf_s(fpOUT, "%s", message);
+	if (fpIN == NULL)
+		for (unsigned int i = ~0u; i != 0; --i);
+	else
+		fscanf_s(fpIN, "%*c");
+#else
+	if (fpOUT != NULL && message != NULL)
+		fprintf(fpOUT, "%s", message);
+	if (fpIN == NULL)
+		for (unsigned int i = ~0u; i != 0; --i);
+	else
+		fscanf(fpIN, "%*c");
+#endif // _MSC_VER
 }

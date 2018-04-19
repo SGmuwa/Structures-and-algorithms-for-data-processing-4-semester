@@ -30,11 +30,11 @@ namespace z8_4
 		// char * to: указатель на место отправления текстовой информации.
 		// size_t limit: размер доступной информации.
 		// Возвращает: Количество символов записанных в to.
-		static size_t toString(const Matrix<const int> * input, char * to, size_t limit);
+		static size_t toString(const Matrix<int> * input, char * to, size_t limit);
 		// К сожалению, разработка Parse для String затянется на долго. Поэтому я пропущу это.
 
 		// Возвращает: количество символов, которое понадобится для отображения матрицы в текстовый вид.
-		static size_t getCountForToString(const Matrix<const int> * input);
+		static size_t getCountForToString(const Matrix<int> * input);
 
 		// Возвращает: количество символов, которое понадобится для отображения матрицы в текстовый вид.
 		static size_t getCountForToString(const Matrix<const Array<char>*> * input);
@@ -48,7 +48,7 @@ namespace z8_4
 
 		static size_t print(const Matrix<const Array<char>*> * input, FILE * toWriter);
 
-		static size_t print(const Matrix<const int> * input, FILE * toWriter);
+		static size_t print(const Matrix<int> * input, FILE * toWriter);
 
 		template <typename T>
 		static Matrix<T> * GetStarterSizeMatrix()
@@ -91,13 +91,13 @@ namespace z8_4
 #endif
 					output[0](i, j) =
 						Array<char>::CreateCopyArray( // Тот массив, который следует поместить в матрицу.
-							bufferToPrint, // Передаём указатель, показывая, сколько 
+							toSave, // Передаём указатель, показывая, сколько 
 							UserInterface::GetStr(bufferToPrint, toSave, sizeof(toSave), fpIN, fpOUT) // Помещаем в buffer информацию, узнавая количество символов
 							);
 				}
 		}
 
-		static void FreeMatrixContent(Matrix<Array<char>*> * input)
+		static void FreeMatrixContent(Matrix<const Array<char>*> * input)
 		{
 			for (size_t r = input->getRows() - 1; r != ~(size_t)0; r--)
 				for (size_t c = input->getCols() - 1; c != ~(size_t)0; c--)

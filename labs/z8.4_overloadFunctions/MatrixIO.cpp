@@ -66,7 +66,7 @@ size_t MatrixIO::toString(const Matrix<const Array<char>*> * input, char * to, s
 		+ 1u;
 }
 
-size_t MatrixIO::toString(const Matrix<const int> * input, char * to, size_t limit)
+size_t MatrixIO::toString(const Matrix<int> * input, char * to, size_t limit)
 {
 
 #ifdef _MSC_VER
@@ -139,7 +139,7 @@ size_t MatrixIO::getCountForToString(const Matrix<const Array<char>*> * input)
 	return ++output;
 }
 
-size_t MatrixIO::getCountForToString(const Matrix<const int> * input)
+size_t MatrixIO::getCountForToString(const Matrix<int> * input)
 {
 	size_t output = 0;
 	char buffer[64] = { 0 };
@@ -255,18 +255,22 @@ Matrix<int> * MatrixIO::parseInt(FILE * from, FILE * questions)
 
 size_t MatrixIO::print(const Matrix<const Array<char>*> * input, FILE * toWriter)
 {
+	if (input == NULL || toWriter == NULL) return 0;
 	size_t sizeBuffer = getCountForToString(input);
 	char * buffer = new char[sizeBuffer];
 	toString(input, buffer, sizeBuffer);
 	size_t output = fwrite(buffer, sizeof(char), sizeBuffer / sizeof(char), toWriter);
-	delete[] buffer; return output;
+	delete[] buffer;
+	return output;
 }
 
-size_t MatrixIO::print(const Matrix<const int> * input, FILE * toWriter)
+size_t MatrixIO::print(const Matrix<int> * input, FILE * toWriter)
 {
+	if (input == NULL || toWriter == NULL) return 0;
 	size_t sizeBuffer = getCountForToString(input);
 	char * buffer = new char[sizeBuffer];
 	toString(input, buffer, sizeBuffer);
 	size_t output = fwrite(buffer, sizeof(char), sizeBuffer / sizeof(char), toWriter);
-	delete[] buffer; return output;
+	delete[] buffer;
+	return output;
 }

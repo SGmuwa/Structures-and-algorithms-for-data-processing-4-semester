@@ -15,14 +15,30 @@ z8_4::program::program() {}
 int z8_4::program::main(int argc, char * argv[])
 {
 	setlocale(LC_ALL, "Russian");
-	StartTest();
+	if(argc > 1) StartTest();
+	Matrix<int> * typeINT = nullptr;
+	Matrix<const Array<char>*> * typeSTR = nullptr;
 	switch (UserInterface::GetChek("С каким типом данных вы будете работать?\n0. Целые числа\n1. Текст", 1))
 	{
 	case 0:
+		MatrixIO::GetStarterMatrix(typeINT, stdin, stdout);
 		break;
 	default:
+		MatrixIO::GetStarterMatrix(typeSTR, stdin, stdout);
+		UserInterface::pause("Введите любой символ для продолжения...");
 		break;
 	}
+
+	SortMatrix::Sort_by_z8_4(typeINT);
+	SortMatrix::Sort_by_z8_4(typeSTR);
+
+	MatrixIO::print(typeINT, stdout);
+	MatrixIO::print(typeSTR, stdout);
+
+	delete typeINT;
+	delete typeSTR;
+
+	UserInterface::pause("Введите любой символ для выхода...");
 
 	return 0;
 }
@@ -32,11 +48,11 @@ unsigned z8_4::program::StartTest()
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование началось.\n");
 
-	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+	for (size_t i = 10; i != 0; i--) // Тестирование утечки памяти.
 		Test_ParseToStringInt();
-	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+	for (size_t i = 10; i != 0; i--) // Тестирование утечки памяти.
 		Test_SortMatrixInt();
-	for (size_t i = 200; i != 0; i--) // Тестирование утечки памяти.
+	for (size_t i = 10; i != 0; i--) // Тестирование утечки памяти.
 		Test_SortMatrixString();
 
 	test_UserInterface::log(true, "\n\n\nИтоговое тестирование:\n", errors);
@@ -76,7 +92,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		}
 	test_UserInterface::log(true, "Parse end.");
 	char MemoryToString[64]; // Участок памяти хранения вывода toString.
-	z8_4::MatrixIO::toString((const Matrix<const int>*)mat, MemoryToString, sizeof(MemoryToString));
+	z8_4::MatrixIO::toString((const Matrix<int>*)mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{
@@ -107,7 +123,7 @@ unsigned z8_4::program::Test_ParseToStringInt()
 		}
 	test_UserInterface::log(true, "Parse end.");
 
-	MatrixIO::toString((const Matrix<const int>*)mat, MemoryToString, sizeof(MemoryToString));
+	MatrixIO::toString((const Matrix<int>*)mat, MemoryToString, sizeof(MemoryToString));
 	test_UserInterface::log(true, MemoryToString);
 	if (strcmp(MemoryToString, "{ {1, 2, 3}, {4, 5, 6}, {7, 8, 9} }") != 0)
 	{
@@ -171,7 +187,7 @@ unsigned z8_4::program::Test_SortMatrixString()
 {
 	unsigned errors = 0;
 	test_UserInterface::log(true, "\nТестирование сортировки (строки).\n");
-	Matrix<Array<char>*> * mat = new Matrix<Array<char>*>(3, 3);
+	Matrix<const Array<char>*> * mat = new Matrix<const Array<char>*>(3, 3);
 	if (mat == NULL)
 	{
 		test_UserInterface::log(false, "mat is NULL!!! Test end.");
