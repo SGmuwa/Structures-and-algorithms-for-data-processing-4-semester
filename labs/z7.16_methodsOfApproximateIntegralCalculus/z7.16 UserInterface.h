@@ -6,12 +6,6 @@
 #include <stdio.h>
 #endif // !_INC_STDIO
 
-#ifdef _MSC_VER
-	#ifndef _INC_STRING
-		#include <string.h>
-	#endif // !_INC_STRING
-#endif // _MSC_VER
-
 #define TRUE 1
 #define FALSE 0
 
@@ -26,10 +20,10 @@ void z7_16_UserInterface_Pause()
 }
 
 // Отправляет пользователю сообщение, и ожидает у него ответа от 0 до maxAccess.
-// char * message: Указатель на сообщение.
+// const char * message: Указатель на сообщение.
 // unsigned char maxAccess: Максимально допустимое значение.
 // Возвращает: Число, введёное пользователем с клавиатуры в пределах 0...maxAccess.
-unsigned char z7_16_UserInterface_GetChek(char * message, unsigned char maxAccess)
+unsigned char z7_16_UserInterface_GetChek(const char * message, unsigned char maxAccess)
 {
 	unsigned char buffer = 0;
 	while (TRUE)
@@ -70,9 +64,9 @@ unsigned char z7_16_UserInterface_GetChek(char * message, unsigned char maxAcces
 }
 
 // Запрашивает целое беззнаковое число у пользователя.
-// char * message: сообщение, которое увидит пользователь.
+// const char * message: сообщение, которое увидит пользователь.
 // Возвращает: Целое беззнаковое число, которое передал пользователь или поток.
-unsigned z7_16_UserInterface_GetUnsignedInt(char * message)
+unsigned z7_16_UserInterface_GetUnsignedInt(const char * message)
 {
 	unsigned buffer = 0;
 	while(TRUE)
@@ -108,9 +102,9 @@ unsigned z7_16_UserInterface_GetUnsignedInt(char * message)
 }
 
 // Запрашивает целое вещественное число у пользователя.
-// char * message: сообщение, которое увидит пользователь.
+// const char * message: сообщение, которое увидит пользователь.
 // Возвращает: Вещественное число, которое передал пользователь или поток.
-float z7_16_UserInterface_GetFloat(char * message)
+float z7_16_UserInterface_GetFloat(const char * message)
 {
 	float buffer = 0;
 	while (TRUE)

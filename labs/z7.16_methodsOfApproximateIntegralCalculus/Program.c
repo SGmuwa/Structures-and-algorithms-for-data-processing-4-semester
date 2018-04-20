@@ -2,8 +2,8 @@
 #include "z7.16 integral Right Rectangle Method.h"
 #include "z7.16 test integral Right Rectangle Method.h"
 #include "z7.16 UserInterface.h"
-#include <math.h>
 
+// Функция 16 варианта.
 double f_xePsx(double x)
 {
 	return (x * exp(-x));

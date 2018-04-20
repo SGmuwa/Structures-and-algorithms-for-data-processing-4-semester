@@ -4,6 +4,8 @@
 #include "z7.16 integral Right Rectangle Method.h"
 #endif // !_INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
 
+
+
 #ifndef _INC_Z7_16_TEST_USERINRERFACE
 #include "z7.16 test UserInterface.h"
 #endif //!_INC_Z7_16_TEST_USERINRERFACE
@@ -136,7 +138,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByH()
 	return out;
 }
 
-
+// Запускает тесты по-очереди.
 unsigned short z7_16_tiRRM_StartTest()
 {
 	unsigned short total = 0;
