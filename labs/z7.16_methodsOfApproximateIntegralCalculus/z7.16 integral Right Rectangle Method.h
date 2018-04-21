@@ -66,6 +66,8 @@ double z7_16_iRRM_CalculateIntegralByH(double f(double), float a, float b, float
 		do {
 			buffer1 = buffer2;
 			N *= 2;
+			if (N == 0) // В случае, если счётчик вышел за пределы.
+				return (float)nan(&buffer2);
 			buffer2 = z7_16_iRRM_CalculateIntegralByN(f, a, b, N);
 		} while (buffer1 - buffer2 > hCurrent || buffer1 - buffer2 < -hCurrent);
 		return buffer2;

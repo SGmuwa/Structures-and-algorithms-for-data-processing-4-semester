@@ -139,5 +139,23 @@ float z7_16_UserInterface_GetFloat(const char * message)
 	return buffer;
 }
 
+// Запрашивает целое вещественное число у пользователя в заданном диапазоне.
+// const char * message: сообщение, которое увидит пользователь.
+// float min: минимально допустимое число.
+// float max: максимально допустимое число.
+// Возвращает: Вещественное число, которое передал пользователь или поток.
+float z7_16_UserInterface_GetFloatInInterval(const char * message, float min, float max)
+{
+	if (min > max) return nanf(&min);
+	if (min == max) return min;
+	if (isnan(min) || isnan(max)) return nanf(NULL);
+	float buffer;
+	do 
+	{
+		buffer = z7_16_UserInterface_GetFloat(message);
+	} while (buffer > max || buffer < min);
+	return buffer;
+}
+
 #endif // !_INC_Z7_16_USERINTERFACE
 

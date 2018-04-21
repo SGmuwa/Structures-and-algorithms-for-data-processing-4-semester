@@ -21,7 +21,7 @@ void BeginIntegral()
 	printf("b = 1.5; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 1.5f, hCurrent));
 	printf("b = 2.0; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, 2.0f, hCurrent));
 
-	printf("b: your; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, z7_16_UserInterface_GetFloat("b = "), hCurrent));
+	printf("b: your; result: %0.46f\n", z7_16_iRRM_CalculateIntegralByH(f_xePsx, 0.0f, z7_16_UserInterface_GetFloatInInterval("b = ", -5.0f, 25.0f), hCurrent));
 }
 
 int main(int argc, char * argv[])
