@@ -146,11 +146,11 @@ float z7_16_UserInterface_GetFloat(const char * message)
 // Возвращает: Вещественное число, которое передал пользователь или поток.
 float z7_16_UserInterface_GetFloatInInterval(const char * message, float min, float max)
 {
-	if (min > max) return nanf(&min);
+	if (min > max) return nanf((const char *)&min);
 	if (min == max) return min;
-	if (isnan(min) || isnan(max)) return nanf(NULL);
+	if (isnan(min) || isnan(max)) return nanf((const char *)NULL);
 	float buffer;
-	do 
+	do
 	{
 		buffer = z7_16_UserInterface_GetFloat(message);
 	} while (buffer > max || buffer < min);

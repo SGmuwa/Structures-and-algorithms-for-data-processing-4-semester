@@ -31,9 +31,13 @@ double z7_16_iRRM_CalculateIntegralByN(double f(double), float a, float b, unsig
 double z7_16_iRRM_CalculateIntegralByH(double f(double), float a, float b, float hCurrent);
 
 // ----------------------------------------------------
-
-inline double z7_16_iRRM_p_getNextX(double oldX, double h)
-{ return oldX + h; }
+#ifdef _MSC_VER
+inline // Visual Studio установлен компилятор, который поддерживает в Си inline вставки.
+#endif
+double z7_16_iRRM_p_getNextX(double oldX, double h)
+{
+    return oldX + h;
+}
 
 double z7_16_iRRM_p_sum(unsigned long N, double f(double x), double h, float a)
 {
@@ -67,7 +71,7 @@ double z7_16_iRRM_CalculateIntegralByH(double f(double), float a, float b, float
 			buffer1 = buffer2;
 			N *= 2;
 			if (N == 0) // В случае, если счётчик вышел за пределы.
-				return (float)nan(&buffer2);
+				return (float)nan((const char *)&buffer2);
 			buffer2 = z7_16_iRRM_CalculateIntegralByN(f, a, b, N);
 		} while (buffer1 - buffer2 > hCurrent || buffer1 - buffer2 < -hCurrent);
 		return buffer2;
