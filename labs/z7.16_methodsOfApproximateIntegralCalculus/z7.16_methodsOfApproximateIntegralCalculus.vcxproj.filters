@@ -23,10 +23,10 @@
     <ClInclude Include="z7.16 integral Right Rectangle Method.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="z7.16 test UserInterface.h">
+    <ClInclude Include="z7.16 UserInterface.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="z7.16 UserInterface.h">
+    <ClInclude Include="z7.16 test UserInterface.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

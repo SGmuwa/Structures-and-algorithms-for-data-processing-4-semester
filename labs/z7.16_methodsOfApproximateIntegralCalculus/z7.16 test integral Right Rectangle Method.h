@@ -4,6 +4,8 @@
 #include "z7.16 integral Right Rectangle Method.h"
 #endif // !_INC_Z7_16_INTEGRAL_RIGHT_RECTANGLE_METHOD
 
+
+
 #ifndef _INC_Z7_16_TEST_USERINRERFACE
 #include "z7.16 test UserInterface.h"
 #endif //!_INC_Z7_16_TEST_USERINRERFACE
@@ -45,7 +47,7 @@ unsigned short z7_16_tiRRM_p_Test_p_getH()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getH: 0, 0: failed. Result: ", z7_16_iRRM_p_getH(0.0f, 0.0f, 0u));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getH: 0, 0: failed. Result: ", (float)z7_16_iRRM_p_getH(0.0f, 0.0f, 0u));
 	}
 
 	if (z7_16_iRRM_p_getH(-4.0f, 7.2f, 4u) == 2.8f)
@@ -53,14 +55,14 @@ unsigned short z7_16_tiRRM_p_Test_p_getH()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getH: -3, 0.2: failed. Result: ", z7_16_iRRM_p_getH(-4.0f, 7.2f, 4));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_getH: -3, 0.2: failed. Result: ", (float)z7_16_iRRM_p_getH(-4.0f, 7.2f, 4));
 	}
 
 	return out;
 }
 
-float z7_16_tiRRM_p_Test_p_sum_functionArgument1(float x) { return 1.0f; }
-float z7_16_tiRRM_p_Test_p_sum_functionArgument2(float x) { return x; }
+double z7_16_tiRRM_p_Test_p_sum_functionArgument1(double x) { return 1.0f; }
+double z7_16_tiRRM_p_Test_p_sum_functionArgument2(double x) { return x; }
 
 // Тестирует z7_16_iRRM_p_sum. Возвращает количество ошибок.
 unsigned short z7_16_tiRRM_p_Test_p_sum()
@@ -71,7 +73,7 @@ unsigned short z7_16_tiRRM_p_Test_p_sum()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_sum: 0, f1, 1.0: failed. Result: ", z7_16_iRRM_p_sum(0, z7_16_tiRRM_p_Test_p_sum_functionArgument1, 1.0f, 0.0f));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_sum: 0, f1, 1.0: failed. Result: ", (float)z7_16_iRRM_p_sum(0, z7_16_tiRRM_p_Test_p_sum_functionArgument1, 1.0f, 0.0f));
 	}
 
 	if (z7_16_iRRM_p_sum(3, z7_16_tiRRM_p_Test_p_sum_functionArgument2, 1.0f, 0.0f) == 3.0f) // Смотреть примечание 1 в коде
@@ -79,7 +81,7 @@ unsigned short z7_16_tiRRM_p_Test_p_sum()
 	else
 	{
 		out++;
-		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_sum:  3, f2, 1.0: failed. Result: ", z7_16_iRRM_p_sum(3, z7_16_tiRRM_p_Test_p_sum_functionArgument2, 1.0f, 0.0f));
+		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_p_sum:  3, f2, 1.0: failed. Result: ", (float)z7_16_iRRM_p_sum(3, z7_16_tiRRM_p_Test_p_sum_functionArgument2, 1.0f, 0.0f));
 	}
 	return out;
 }
@@ -89,7 +91,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByN()
 	unsigned short out = 0;
 	float buffer;
 
-	buffer = z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 10000000);
+	buffer = (float)z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 10000000);
 	if (buffer - 128.0f < 0.1f && buffer - 128.0f > -0.1f)
 		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 16, 10000000: ok. Observational error: ", buffer - 128.0f);
 	else
@@ -98,7 +100,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByN()
 		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
 	}
 
-	buffer = z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0);
+	buffer = (float)z7_16_iRRM_CalculateIntegralByN(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0);
 	if (ISNAN(buffer))
 		z7_16_test_UserInterface_p_log(TRUE, "z7_16_iRRM_CalculateIntegralByN: f2, 0, 0, 0: isnan. ok.");
 	else
@@ -115,7 +117,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByH()
 	unsigned short out = 0;
 	float buffer;
 
-	buffer = z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 0.01f);
+	buffer = (float)z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 16.0f, 0.01f);
 	if (buffer - 128.0f < 0.01f && buffer - 128.0f > -0.01f)
 		z7_16_test_UserInterface_p_logStringFloat(TRUE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 16, 0.01: ok. Observational error: ", buffer - 128.0f);
 	else
@@ -124,7 +126,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByH()
 		z7_16_test_UserInterface_p_logStringFloat(FALSE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 16, 10000000: failed. Observational error: ", buffer - 128.0f);
 	}
 
-	buffer = z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0.0f);
+	buffer = (float)z7_16_iRRM_CalculateIntegralByH(z7_16_tiRRM_p_Test_p_sum_functionArgument2, 0.0f, 0.0f, 0.0f);
 	if (ISNAN(buffer))
 		z7_16_test_UserInterface_p_log(TRUE, "z7_16_iRRM_CalculateIntegralByH: f2, 0, 0, 0: isnan. ok.");
 	else
@@ -136,7 +138,7 @@ unsigned short z7_16_tiRRM_p_Test_CalculateIntegralByH()
 	return out;
 }
 
-
+// Запускает тесты по-очереди.
 unsigned short z7_16_tiRRM_StartTest()
 {
 	unsigned short total = 0;
