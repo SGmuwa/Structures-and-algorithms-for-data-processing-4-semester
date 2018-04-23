@@ -71,7 +71,12 @@ namespace z8_4
 		}
 
 
-		void swapRows(size_t, size_t);
+		void swapRows(size_t r1, size_t r2)
+		{
+			T *temp = p[r1];
+			p[r1] = p[r2];
+			p[r2] = temp;
+		}
 		Matrix<T> transpose();
 
 		Matrix<T> augment(Matrix<T> A, Matrix<T> B);

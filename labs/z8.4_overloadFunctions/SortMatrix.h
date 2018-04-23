@@ -35,6 +35,8 @@ namespace z8_4
 	private:
 		template<typename T>
 		static void Swap(T & a, T & b);
+		template<typename T>
+		static void SwapCols(Matrix<T> * a, size_t c1, size_t c2);
 	};
 }
 #endif //!_INC_SORTMATRIX_

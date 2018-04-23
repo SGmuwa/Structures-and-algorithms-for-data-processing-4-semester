@@ -23,7 +23,7 @@ void z8_4::SortMatrix::Sort_by_z8_4(Matrix<int> * input, FILE * fpOUT)
 		for (size_t j = i + 1; j < input[0].getCols(); j++)
 			if (input[0](0, i) < input[0](0, j))
 			{
-				Swap(input[0](0, i), input[0](0, j));
+				SwapCols(input, i, j);
 				if (fpOUT != NULL)
 				{
 					z8_4::MatrixIO::print(input, stdout);
@@ -45,7 +45,7 @@ void z8_4::SortMatrix::Sort_by_z8_4(Matrix<const Array<char>*> * input, FILE * f
 		for (size_t j = i + 1; j < input[0].getCols(); j++)
 			if (strcmp((char*)input[0](0, i)[0], (char*)input[0](0, j)[0]) < 0)
 			{
-				Swap(input[0](0, i), input[0](0, j));
+				SwapCols(input, i, j);
 				if (fpOUT != NULL)
 				{
 					z8_4::MatrixIO::print(input, stdout);
@@ -61,8 +61,22 @@ void z8_4::SortMatrix::Swap(T & a, T & b)
 	T buffer = a;
 	a = b;
 	b = buffer;
-	/*
-	a = a + b;
-	b = a - b;
-	a = a - b;*/
+	
+	//a = a + b;
+	//b = a - b;
+	//a = a - b;
+}
+
+template<typename T>
+void z8_4::SortMatrix::SwapCols(Matrix<T> * a, size_t c1, size_t c2)
+{
+	if (
+		a == NULL ||
+		c1 == c2 ||
+		c1 >= a->getCols() ||
+		c2 >= a->getCols() ||
+		a->getRows() == 0
+		) return;
+	for (size_t r = a->getRows() - 1; r != ~(size_t)0; r--)
+		Swap((*a)(r, c1), (*a)(r, c2));
 }

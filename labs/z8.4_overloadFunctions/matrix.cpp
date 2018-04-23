@@ -59,14 +59,6 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
 */
 
 template <typename T>
-void z8_4::Matrix<T>::swapRows(size_t r1, size_t r2)
-{
-    T *temp = p[r1];
-    p[r1] = p[r2];
-    p[r2] = temp;
-}
-
-template <typename T>
 z8_4::Matrix<T> z8_4::Matrix<T>::transpose()
 {
     Matrix<T> ret(cols_, rows_);

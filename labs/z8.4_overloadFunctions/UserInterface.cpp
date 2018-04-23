@@ -88,7 +88,7 @@ float UserInterface::GetFloat(const char * message, FILE * fpIN = stdin, FILE * 
 #ifdef _MSC_VER
 			fprintf_s(fpOUT, "%s", message);
 #else
-			printf(fpOUT, "%s", message);
+			fprintf(fpOUT, "%s", message);
 #endif // _MSC_VER
 		if (
 #ifdef _MSC_VER
@@ -186,7 +186,6 @@ unsigned UserInterface::GetUnsignedInt(const char * message, unsigned min, unsig
 
 void UserInterface::pause(const char * message, FILE * fpOUT, FILE * fpIN)
 {
-	sizeof(int);
 #ifdef _MSC_VER
 	if(fpOUT != NULL && message != NULL)
 		fprintf_s(fpOUT, "%s", message);

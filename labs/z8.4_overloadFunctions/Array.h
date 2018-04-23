@@ -3,20 +3,29 @@
 #ifndef _INC_ARRAY_
 #define _INC_ARRAY_
 
+#ifndef _STDLIB_H
+#include <stdlib.h>
+#endif
+
+#ifndef _STRING_H
+#include <string.h>
+#endif
+
+
 namespace z8_4
 {
 	template <typename T>
 	class Array
 	{
 	public:
-		// Инцилизация пустого массива. На практике не применяется.
+		// Инициализация пустого массива. На практике не применяется.
 		Array()
 		{
 			data = nullptr;
 			length = 0u;
 			isNeedFree = false;
 		}
-		// Инцилизация массива
+		// Инициализация массива
 		// T * Data: Передайте указатель, в котором хранятся данные.
 		// size_t length: количество элементов.
 		// bool needFree = false: Установите true, если при вызове деконструктора требуется вызвать освобождение free данных. Иначе установите false. По-умолчанию: false.
@@ -56,7 +65,6 @@ namespace z8_4
 
 		inline T operator[](size_t index);
 
-		template<typename T>
 		inline operator T*() const
 		{
 			return data;

@@ -61,7 +61,7 @@ unsigned z8_4::program::StartTest()
 	errors += Test_SortMatrixInt();
 	errors += Test_SortMatrixString();
 
-	test_UserInterface::log(true, "Тестирование окончено. Количество ошибок: ", errors);
+	test_UserInterface::log(errors == 0, "Тестирование окончено. Количество ошибок: ", errors);
 	return errors;
 }
 
@@ -154,30 +154,56 @@ unsigned z8_4::program::Test_SortMatrixInt()
 			(*mat)(r, c) = i++;
 		}
 
+
+	/*
+	{
+	{2, 3, 4}
+	{5, 6, 7}
+	{8, 9, A}
+	}
+
+	*/
+
 	SortMatrix::Sort_by_z8_4(mat);
 
-	i = 2;
-	for (size_t r = 0; r < (*mat).getRows(); r++)
-		for (size_t c = 0; c < (*mat).getCols(); c++)
-		{
-			if (r != 0)
-				if ((*mat)(r, c) != i)
-				{
-					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
-					errors++;
-				}
-				else test_UserInterface::log(true, "Элемент, который не должен был измениться, не изменился. i = ", i);
-			i++;
-		}
-	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
+	/*
 	{
-		if (((*mat)(0, c) > (*mat)(0, c + 1)) == false)
+	{4, 3, 2}
+	{7, 6, 5}
+	{A, 9, 8}
+	}
+
+	*/
+
+	i = 2;
+	for (size_t r = 0, c = 0; i <= 9 - 1 + 2; i++)
+	{
+		switch (i)
+		{ // Способ 1
+		case 0x2: r = 0; c = 2; break;
+		case 0x3: r = 0; c = 1; break;
+		case 0x4: r = 0; c = 0; break;
+		case 0x5: r = 1; c = 2; break;
+		case 0x6: r = 1; c = 1; break;
+		case 0x7: r = 1; c = 0; break;
+		case 0x8: r = 2; c = 2; break;
+		case 0x9: r = 2; c = 1; break;
+		case 0xA: r = 2; c = 0; break;
+		default:
+			test_UserInterface::log(false, "Ошибка составления тестирования. i = ", i);
+			errors++;
+			break;
+		}
+		if ((*mat)(r, c) != i)
 		{
-			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
+			MatrixIO::print(mat, stdout);
+			test_UserInterface::log(false, "Ошибка сортировки. i = ", i);
 			errors++;
 		}
-		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
+		else test_UserInterface::log(true, "Элемент отсортирован верно. i = ", i);
 	}
+	if (errors != 0)
+		MatrixIO::print(mat, stdout);
 	delete mat;
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");
 	return errors;
@@ -207,26 +233,19 @@ unsigned z8_4::program::Test_SortMatrixString()
 
 	i = 0;
 	for (size_t r = 0; r < (*mat).getRows(); r++)
-		for (size_t c = 0; c < (*mat).getCols(); c++)
+		for (size_t c = (*mat).getCols() - 1; c != ~(size_t)0; c--)
+			// Способ 2
 		{
-			if (r != 0)
-				if (strcmp((char*)*(*mat)(r, c), a[i]) != 0)
-				{
-					test_UserInterface::log(false, "Отклонение адресации в сортировке. i = ", i);
-					errors++;
-				}
-				else test_UserInterface::log(true, "Элемент, который не должен был измениться, не изменился. i = ", i);
+			if (strcmp((char*)*(*mat)(r, c), a[i]) != 0)
+			{
+				test_UserInterface::log(false, "Элемент не отсортирован. i = ", i);
+				errors++;
+			}
+			else test_UserInterface::log(true, "Элемент отсортирован. i = ", i);
 			i++;
 		}
-	for (size_t c = 0; c < (*mat).getCols() - 1; c++)
-	{
-		if ((strcmp((*mat)(0, c)->GetConstData(), (*mat)(0, c + 1)->GetConstData()) > 0) == false) // Если не отсортировано
-		{
-			test_UserInterface::log(false, "К сожалению, матрица не отсортирована. c = ", c);
-			errors++;
-		}
-		else test_UserInterface::log(true, "Элементы отсортированы. c = ", c);
-	}
+	if(errors != 0)
+		MatrixIO::print(mat, stdout);
 	MatrixIO::FreeMatrixContent(mat);
 	delete mat;
 	test_UserInterface::log(true, "Тестирование сортировки завершено.");

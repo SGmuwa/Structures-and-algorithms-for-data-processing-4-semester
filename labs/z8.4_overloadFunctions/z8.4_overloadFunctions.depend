@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1523262117 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\array.cpp
+
+1524489633 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\matrix.cpp
+	"matrix.h"
+	<stdio.h>
+
+1524489623 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\matrix.h
+	"Array.h"
+
+1524492199 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\array.h
+	<stdlib.h>
+	<string.h>
+
+1524492030 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\matrixio.cpp
+	<string.h>
+	<stdio.h>
+	"MatrixIO.h"
+	"UserInterface.h"
+	<stdlib.h>
+
+1524124340 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\matrixio.h
+	"matrix.h"
+	<stdio.h>
+	"UserInterface.h"
+
+1524122711 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\userinterface.h
+	<stdio.h>
+
+1524490028 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\program.cpp
+	"z8.4 test UserInterface.h"
+	<string.h>
+
+1522698941 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\z8.4 test userinterface.h
+	<stdio.h>
+
+1524490544 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\sortmatrix.cpp
+	<string.h>
+	"MatrixIO.h"
+	<stdio.h>
+
+1522698990 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\startertest.cpp
+
+1524492537 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\z8.4_overloadfunctions\userinterface.cpp
+

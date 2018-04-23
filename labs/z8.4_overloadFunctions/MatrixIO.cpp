@@ -87,7 +87,7 @@ size_t MatrixIO::toString(const Matrix<int> * input, char * to, size_t limit)
 #ifdef _MSC_VER
 				sprintf_s(to, limit, "%s%d, ", to, input[0](r, c));
 #else
-				sprintf(to, "%s%d, ", to, input(r, c));
+				sprintf(to, "%s%d, ", to, input[0](r, c));
 #endif
 			else
 #ifdef _MSC_VER
