@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="z8.4_overloadFunctions" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="cb/bin/Debug/z8.4_overloadFunctions" prefix_auto="1" extension_auto="1" />
+				<Option object_output="cb/obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="cb/bin/Release/z8.4_overloadFunctions" prefix_auto="1" extension_auto="1" />
+				<Option object_output="cb/obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="Array.cpp" />
+		<Unit filename="Array.h" />
+		<Unit filename="Formulation of the problem.txt" />
+		<Unit filename="MatrixIO.cpp" />
+		<Unit filename="MatrixIO.h" />
+		<Unit filename="SortMatrix.cpp" />
+		<Unit filename="SortMatrix.h" />
+		<Unit filename="StarterTest.cpp" />
+		<Unit filename="UserInterface.cpp" />
+		<Unit filename="UserInterface.h" />
+		<Unit filename="matrix.cpp" />
+		<Unit filename="matrix.h" />
+		<Unit filename="program.cpp" />
+		<Unit filename="program.h" />
+		<Unit filename="z8.4 sort.h" />
+		<Unit filename="z8.4 test UserInterface.h" />
+		<Unit filename="z8.4 test.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

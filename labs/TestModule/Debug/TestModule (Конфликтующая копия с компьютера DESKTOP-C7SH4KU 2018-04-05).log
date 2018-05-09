@@ -1,0 +1,8 @@
+﻿  Array.cpp
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\array.cpp(12): warning C5037: "z8_4::Array<T>::Array": внешнее определение члена шаблона класса не может иметь аргументы по умолчанию
+  matrix.cpp
+  Source.cpp
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z8.4_overloadfunctions\array.cpp(12): warning C5037: "z8_4::Array<T>::Array": внешнее определение члена шаблона класса не может иметь аргументы по умолчанию
+  Создание кода...
+matrix.obj : error LNK2019: ссылка на неразрешенный внешний символ "public: unsigned int __thiscall z8_4::Array<int>::getLength(void)" (?getLength@?$Array@H@z8_4@@QAEIXZ) в функции "private: static bool __cdecl z8_4::WriterMatrix::Tester(void)" (?Tester@WriterMatrix@z8_4@@CA_NXZ)
+D:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\TestModule.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
