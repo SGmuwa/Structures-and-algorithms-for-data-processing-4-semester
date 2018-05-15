@@ -1,0 +1,9 @@
+﻿  Source.c
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z10.13_recursion\source.c(8): warning C4090: =: разные квалификаторы "const"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z10.13_recursion\source.c(15): warning C4090: функция: разные квалификаторы "const"
+  Создание кода
+  4 of 20 functions (20.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  z10.13_recursion.vcxproj -> D:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Release\z10.13_recursion.exe

@@ -1,0 +1,4 @@
+﻿  Source.c
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z10.13_recursion\source.c(8): warning C4090: =: разные квалификаторы "const"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z10.13_recursion\source.c(15): warning C4090: функция: разные квалификаторы "const"
+  z10.13_recursion.vcxproj -> D:\Dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\Debug\z10.13_recursion.exe
