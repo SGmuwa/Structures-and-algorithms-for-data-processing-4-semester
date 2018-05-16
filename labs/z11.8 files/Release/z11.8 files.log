@@ -1,0 +1,13 @@
+﻿  Source.c
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(36): error C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(2261): note:  см. объявление "sscanf"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(46): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1195): note:  см. объявление "fscanf"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(65): warning C4013: Purchase_fparse: нет определения; предполагается "extern" с возвратом типа "int"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(56): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1195): note:  см. объявление "fscanf"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(66): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1195): note:  см. объявление "fscanf"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(88): warning C4013: Purchase_fPrint: нет определения; предполагается "extern" с возвратом типа "int"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\purchase.h(104): warning C4013: Purchase_fprint: нет определения; предполагается "extern" с возвратом типа "int"
+d:\dropbox\записи\тетради\4 семестр\структуры и алгоритмы обработки данных\labs\z11.8 files\source.c(7): warning C4013: Purchase_Array_fprint: нет определения; предполагается "extern" с возвратом типа "int"
