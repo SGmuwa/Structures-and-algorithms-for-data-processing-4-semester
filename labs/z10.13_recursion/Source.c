@@ -12,6 +12,7 @@ int * p_findMaxIndexInArray(const int * array, size_t length, int * maxIndex)
 // ѕоиск максимального значени€ массива из n целых чисел. ¬озвращает указатель на самый большой.
 int * findMaxIndexInArray(const int * array, size_t length)
 {
+	if (array == NULL || length == 0) return NULL;
 	return p_findMaxIndexInArray(array + 1, length - 1, array);
 }
 
