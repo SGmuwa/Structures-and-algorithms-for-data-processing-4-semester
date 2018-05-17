@@ -34,7 +34,7 @@ int main(int argc, char * argv[])
 		UserInterface_Pause("error: type is not know.");
 		return -1;
 	}
-	
+
 	Purchase_Array_fPrintln(stdout, arr);
 	if (fpOUTtext != NULL)
 	{

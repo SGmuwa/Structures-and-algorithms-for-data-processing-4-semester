@@ -461,7 +461,7 @@ FILE * UserInterface_OpenFile(const char * message, const char * mode)
 #ifdef _MSC_VER
 		fopen_s(&output, buffer, mode) != 0);
 #else
-	(output = fopen(buffer, mode)) != 0);
+	(output = fopen(buffer, mode)) != NULL);
 #endif
 	return output;
 }
