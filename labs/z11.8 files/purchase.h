@@ -55,7 +55,7 @@ extern "C"
 #else
 			fscanf
 #endif
-			(fpIN, "purchase: {%lu, %f, %llu}\n", &output->CheckNumber, &output->TotalSum, &output->DateTime);
+			(fpIN, "purchase: {%lu, %f, %llu}", &output->CheckNumber, &output->TotalSum, &output->DateTime);
 	}
 
 	// Прочитать из файла массив чеков.
@@ -139,19 +139,48 @@ extern "C"
 	// Возвращает: указатель в участке памяти на подходящий элемент.
 	struct purchase * Purchase_Array_bynarySearch(const struct purchase_Array input, unsigned long key)
 	{
-		if (input.length == 0 || input.data == NULL) return input.data;
-		size_t i = input.length / 2;
-		size_t numberOfTry = 0;
-		while (numberOfTry < input.length / 2 + 1)
-		{
-			numberOfTry++;
-			if (input.data[i].CheckNumber > key)
-				i += i >> numberOfTry;
-			else if (input.data[i].CheckNumber < key)
-				i -= i >> numberOfTry;
-			else return input.data + i;
+		/* Номер первого элемента в массиве */
+		size_t first = 0;
+		/* Номер элемента в массиве, СЛЕДУЮЩЕГО ЗА последним */
+		size_t last = input.length;
+
+		/* Начальная проверка, которую, в принципе, можно опустить — но тогда см. ниже! */
+		if (last == 0) {
+			/* массив пуст */
+			return NULL;
 		}
-		return NULL; // Такого элемента не нашлось.
+		else if (input.data[0].CheckNumber > key) {
+			/* искомый элемент меньше всех в массиве */
+			return NULL;
+		}
+		else if (input.data[last - 1].CheckNumber < key) {
+			/* искомый элемент больше всех в массиве */
+			return NULL;
+		}
+
+		/* Если просматриваемый участок непустой, first < last */
+		while (first < last) {
+			size_t mid = first + (last - first) / 2;
+
+			if (key <= input.data[mid].CheckNumber)
+				last = mid;
+			else
+				first = mid + 1;
+		}
+
+		/* Если условный оператор if (n == 0) и т.д. в начале опущен -
+		* значит, тут раскомментировать!
+		*/
+		if (/* last < n && */ input.data[last].CheckNumber == key) {
+			/* Искомый элемент найден. last - искомый индекс */
+			return input.data + last;
+		}
+		else {
+			/* Искомый элемент не найден. Но если вам вдруг надо его
+			* вставить со сдвигом, то его место - last.
+			*/
+			return NULL;
+		}
 	}
 
 
@@ -171,6 +200,44 @@ extern "C"
 		qsort(input.data, input.length, sizeof(struct purchase), Purchase_p_isNeedSwap);
 	}
 
+	// ------------------------------ BINARY FILES --------------------------------------
+
+	struct purchase_Array Purchase_Array_fread(FILE * fpIN)
+	{
+		struct purchase_Array output;
+		unsigned long long buffer;
+		fread(&buffer, sizeof(unsigned long long), 1, fpIN);
+		output.length = (size_t)buffer;
+		output.data = (struct purchase * ) calloc(output.length, sizeof(struct purchase));
+		if (output.data == NULL) { output.length = 0; return output; }
+		
+		/*
+		for (int i = 0; i < (int)output.length; i++)
+			if (fread(output.data + i, sizeof(struct purchase), 1, fpIN) == 0)
+			{
+				
+				printf("error (%d) to fread i = %d\n", ferror(fpIN), i);
+				for (int j = 0; j < sizeof(struct purchase); j++)
+				{
+					if(fread((char*)(output.data + i) + j, sizeof(char), 1, fpIN) == 0)
+						printf("error (%d) to fread byte i = %d j = %d\n", ferror(fpIN), i, j);
+				}
+			}
+			*/
+		size_t countAccess = 0;
+		if ((countAccess = fread(output.data, sizeof(struct purchase), output.length, fpIN)) != output.length)
+		{// Если ошибка
+			output.length = countAccess;
+		}
+		return output;
+	}
+
+	size_t Purchase_Array_fwrite(FILE * fpOUT, struct purchase_Array data)
+	{
+		unsigned long long buffer = data.length;
+		fwrite(&buffer, sizeof(buffer), 1, fpOUT);
+		return fwrite(data.data, sizeof(struct purchase), data.length, fpOUT);
+	}
 
 #ifdef __cplusplus
 }

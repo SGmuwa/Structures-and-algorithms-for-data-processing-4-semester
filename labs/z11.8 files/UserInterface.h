@@ -129,6 +129,49 @@ unsigned long UserInterface_fGetUnsignedLongInt(const char * message, FILE * fpI
 	return buffer;
 }
 
+// Функция получает неотрицательное число от потока ввода. Функция вернёт ~0 если не удалось прочитать число 255 раз.
+// const char * message: Сообщение, которое будет выведено перед запросом числа. Если отправить NULL, сообщение не будет выведено.
+// FILE * fpIN: Поток ввода информации. Отсюда будет получено неотрицательное число.
+// FILE * fpOUT: Поток вывода информации. Сюда отправится message. Если будет NULL, то сообщение не будет отправлено.
+// Возвращает: Неотрицательное число, введённое пользователем.
+unsigned long long UserInterface_fGetUnsignedLongLongInt(const char * message, FILE * fpIN, FILE * fpOUT)
+{
+	if (fpIN == NULL) return 0;
+	unsigned long long buffer = ~0ULL;
+	unsigned char tryLimit = 0;
+	while (--tryLimit != 0)
+	{
+		if (fpOUT != NULL && message != NULL)
+#ifdef _MSC_VER
+			fprintf_s(fpOUT, "%s", message);
+#else
+			fprintf(fpOUT, "%s", message);
+#endif // _MSC_VER
+		if (
+#ifdef _MSC_VER
+			fscanf_s(fpIN, "%llu", &buffer)
+#else
+			fscanf(fpIN, "%llu", &buffer)
+#endif // _MSC_VER
+			>= 1 // Не совсем уверен, как работает %*s. Поэтому знак >=.
+			)
+		{
+			break;
+		}
+#ifdef _MSC_VER
+		fscanf_s(fpIN, "%*s");
+#else
+		fscanf(fpIN, "%*s");
+#endif // _MSC_VER
+	}
+#ifdef _MSC_VER
+	fscanf_s(fpIN, "%*c");
+#else
+	fscanf(fpIN, "%*c");
+#endif // _MSC_VER
+	return buffer;
+}
+
 // Получает от fpIN число с плавающей точкой.
 // const char * message: Сообщение, которое необходимо вывести. В Случае NULL сообщение не будет выведено.
 // FILE * fpIN: Поток ввода информация. В случае NULL функция вернёт NaN.
@@ -180,7 +223,7 @@ float UserInterface_fGetFloat(const char * message, FILE * fpIN, FILE * fpOUT)
 // FILE * fpIN: Поток ввода информации. Отсюда будет браться текст. В случае NULL функция вернёт 0.
 // FILE * fpOUT: Поток вывода информации. В случае NULL сообщение выведено не будет.
 // Возвращает: количество прочтённых символов.
-size_t UserInterface_fGetStr(const char * message, char * To, size_t countTo, FILE * fpIN, FILE * fpOUT)
+size_t UserInterface_fGetStrln(const char * message, char * To, size_t countTo, FILE * fpIN, FILE * fpOUT)
 {
 	if (fpIN == NULL) return 0u;
 	if (fpOUT != NULL && message != NULL) fprintf(fpOUT, "%s Use CTRL + 2 or CTRL + A, CTRL + B, CTRL + D for end.\n", message);
@@ -194,6 +237,36 @@ size_t UserInterface_fGetStr(const char * message, char * To, size_t countTo, FI
 		fread(++i, sizeof(char), 1, fpIN); // На каждой новой итерации прибавляем i и записываем 1 символ в To.
 #endif // _MSC_VER
 	} while (*i >= 0x09 && i != To + countTo - 2); // -1 из-за того, что sizeof возвращает количество, а не последний элемент.
+												   // -1 из-за того, чтобы не вошёл в цикл и не стал записьвать в 256 элемент.
+												   // неактуально: -1 из-за того, чтобы добавить ещё нулевой символ.
+												   // Цикл повторяется, пока пользователь не введёт какой-либо управляющий символ.
+												   // https://ru.wikipedia.org/wiki/Управляющие_символы
+
+	*(i) = '\0'; // Добавляем последний символ.
+	return i - To + 1; // +1 так как нужно количество элементов, а не расстояние между первым и последним.
+}
+
+// Запрашивает текстовые данные от пользователя. Для того, чтобы закончить набирать текстовую информацию, пользователю необходимо отправить любой из следующий символов: \0 \1 \2 \3 \4 \5 \6 \7 \8 ... \31.
+// const char * message: Сообщение, которое нужно вывести перед запросом. В случае NULL сообщение не будет выведено.
+// char * To: Указатель на первый доступный символ для записи. В случае NULL функция вернёт 0.
+// size_t countTo: Количество доступных символов для записи в To; В случае 0 функция выведет message и вернёт 0.
+// FILE * fpIN: Поток ввода информации. Отсюда будет браться текст. В случае NULL функция вернёт 0.
+// FILE * fpOUT: Поток вывода информации. В случае NULL сообщение выведено не будет.
+// Возвращает: количество прочтённых символов.
+size_t UserInterface_fGetStr(const char * message, char * To, size_t countTo, FILE * fpIN, FILE * fpOUT)
+{
+	if (fpIN == NULL) return 0u;
+	if (fpOUT != NULL && message != NULL) fprintf(fpOUT, "%s", message);
+	if (To == NULL) return 0u;
+	if (countTo == 0u) return 0u;
+	char * i = To - 1; // Уменьшаем на 1, так как в цикле будет прибавление
+	do {
+#ifdef _MSC_VER // Для компилятора Visual Studio
+		fread_s(++i, i - To + 1, sizeof(char), 1, fpIN);
+#else // Для компиляторов ANSI C.
+		fread(++i, sizeof(char), 1, fpIN); // На каждой новой итерации прибавляем i и записываем 1 символ в To.
+#endif // _MSC_VER
+	} while (*i >= 32 && i != To + countTo - 2); // -1 из-за того, что sizeof возвращает количество, а не последний элемент.
 												   // -1 из-за того, чтобы не вошёл в цикл и не стал записьвать в 256 элемент.
 												   // неактуально: -1 из-за того, чтобы добавить ещё нулевой символ.
 												   // Цикл повторяется, пока пользователь не введёт какой-либо управляющий символ.
@@ -257,6 +330,14 @@ unsigned long UserInterface_GetUnsignedLongInt(const char * message)
 	return UserInterface_fGetUnsignedLongInt(message, stdin, stdout);
 }
 
+// Функция получает неотрицательное число от потока ввода. Функция вернёт ~0 если не удалось прочитать число 255 раз.
+// const char * message: Сообщение, которое будет выведено перед запросом числа. Если отправить NULL, сообщение не будет выведено.
+// Возвращает: Неотрицательное число, введённое пользователем.
+unsigned long long UserInterface_GetUnsignedLongLongInt(const char * message)
+{
+	return UserInterface_fGetUnsignedLongLongInt(message, stdin, stdout);
+}
+
 
 // Функция получает неотрицательное число от потока ввода.
 // const char * message: Сообщение, которое будет выведено перед запросом числа. Если отправить NULL, сообщение не будет выведено.
@@ -274,6 +355,16 @@ float UserInterface_GetFloat(const char * message)
 { return UserInterface_fGetFloat(message, stdin, stdout); }
 
 // Запрашивает текстовые данные от пользователя через стандартные потоки ввода-вывода. Для того, чтобы закончить набирать текстовую информацию, пользователю необходимо отправить любой из следующий символов: \0 \1 \2 \3 \4 \5 \6 \7 \8.
+// const char * message: Сообщение, которое нужно вывести перед запросом. В случае NULL сообщение не будет выведено.
+// char * To: Указатель на первый доступный символ для записи. В случае NULL функция вернёт 0.
+// size_t countTo: Количество доступных символов для записи в To; В случае 0 функция выведет message и вернёт 0.
+// Возвращает: количество прочтённых символов.
+size_t UserInterface_GetStrln(const char * message, char * To, size_t countTo)
+{
+	return UserInterface_fGetStrln(message, To, countTo, stdin, stdout);
+}
+
+// Запрашивает текстовые данные от пользователя через стандартные потоки ввода-вывода. Для того, чтобы закончить набирать текстовую информацию, пользователю необходимо отправить любой из следующий символов: \0 \1 \2 \3 \4 \5 \6 \7 \8 ... 0x7F.
 // const char * message: Сообщение, которое нужно вывести перед запросом. В случае NULL сообщение не будет выведено.
 // char * To: Указатель на первый доступный символ для записи. В случае NULL функция вернёт 0.
 // size_t countTo: Количество доступных символов для записи в To; В случае 0 функция выведет message и вернёт 0.
@@ -354,6 +445,23 @@ void UserInterface_Pause(const char * message)
 	UserInterface_fPause(message, stdin, stdout);
 }
 
-FILE * UserInterface_fOpen(const char * message)
+FILE * UserInterface_OpenFile(const char * message, const char * mode)
 {
+	if (mode == NULL) return NULL;
+	FILE * output;
+	char buffer[1024];
+	do {
+		UserInterface_GetStr(message, buffer, sizeof(buffer));
+		if (buffer[0] == 'c' && buffer[1] == 'o' && buffer[2] == 'n')
+			if (mode[0] == 'r')
+				return stdin;
+			else if (mode[0] == 'w')
+				return stdout;
+	} while (
+#ifdef _MSC_VER
+		fopen_s(&output, buffer, mode) != 0);
+#else
+	(output = fopen(buffer, mode)) != 0);
+#endif
+	return output;
 }
