@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1521906585 source:c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\labs\program.c
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test integral Right Rectangle Method.h"
+	"z7.16 UserInterface.h"
+	<math.h>
+
+1521386540 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\labs\z7.16 integral right rectangle method.h
+
+1521387384 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\labs\z7.16 test integral right rectangle method.h
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test UserInterface.h"
+
+1521386743 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\labs\z7.16 test userinterface.h
+	<stdio.h>
+
+1521390786 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\cb\labs\z7.16 userinterface.h
+	<stdio.h>
+	<string.h>
+
+1521913610 source:c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\program.c
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test integral Right Rectangle Method.h"
+	"z7.16 UserInterface.h"
+	<math.h>
+
+1521911436 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 integral right rectangle method.h
+	<math.h>
+
+1521913687 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test UserInterface.h"
+
+1521909153 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test userinterface.h
+	<stdio.h>
+
+1521908815 c:\users\Михаил\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 userinterface.h
+	<stdio.h>
+	<string.h>
+
+1524290771 source:d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\program.c
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test integral Right Rectangle Method.h"
+	"z7.16 UserInterface.h"
+
+1524319041 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 integral right rectangle method.h
+	<math.h>
+
+1524210988 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test integral right rectangle method.h
+	"z7.16 integral Right Rectangle Method.h"
+	"z7.16 test UserInterface.h"
+
+1524210832 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 test userinterface.h
+	<stdio.h>
+
+1524318822 d:\dropbox\Записи\Тетради\4 семестр\Структуры и алгоритмы обработки данных\labs\z7.16_methodsofapproximateintegralcalculus\z7.16 userinterface.h
+	<stdio.h>
+
