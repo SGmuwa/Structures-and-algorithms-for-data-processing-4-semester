@@ -1,7 +1,7 @@
-#include "UserInterface.h"
+п»ї#include "UserInterface.h"
 #include <stdlib.h>
 
-// Поиск максимального значения массива из n целых чисел. Возвращает указатель на самый большой
+// С•РѕРёСЃРє РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёВ¤ РјР°СЃСЃРёРІР° РёР· n С†РµР»С‹С… С‡РёСЃРµР». В¬РѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР°РјС‹Р№ Р±РѕР»СЊС€РѕР№
 int * p_findMaxIndexInArray(const int * array, size_t length, int * maxIndex)
 {
 	if (length == 0) return maxIndex;
@@ -9,7 +9,7 @@ int * p_findMaxIndexInArray(const int * array, size_t length, int * maxIndex)
 	return p_findMaxIndexInArray(array + 1, length - 1, maxIndex);
 }
 
-// Поиск максимального значения массива из n целых чисел. Возвращает указатель на самый большой.
+// С•РѕРёСЃРє РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёВ¤ РјР°СЃСЃРёРІР° РёР· n С†РµР»С‹С… С‡РёСЃРµР». В¬РѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР°РјС‹Р№ Р±РѕР»СЊС€РѕР№.
 int * findMaxIndexInArray(const int * array, size_t length)
 {
 	if (array == NULL || length == 0) return NULL;
